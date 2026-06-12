@@ -43,11 +43,11 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 640px;
-  min-height: 100dvh;
+  min-height: 100vh;
   padding-block: 64px;
   padding-inline: 16px;
   margin: 0 auto;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: var(--bg);
 }
 
@@ -57,6 +57,9 @@ body {
 
 .root {
   width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .heading {
@@ -135,57 +138,6 @@ body {
   border-radius: 10px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  width: 100%;
-  margin-top: 12px;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 120px;
-  padding: 12px;
-  cursor: pointer;
-  background: var(--gray-2);
-  border: none;
-  border-radius: 12px;
-  transition: background 0.15s;
-}
-
-.card:hover {
-  background: var(--gray-3);
-}
-
-.card:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--gray-6);
-}
-
-.label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--gray-8);
-}
-
-.card-content {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-}
-
-.value {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--gray-12);
-}
-
 .section {
   display: flex;
   flex-direction: column;
@@ -234,8 +186,9 @@ body {
 .footer {
   display: flex;
   justify-content: space-between;
+  margin-top: auto;
   padding-top: 48px;
-  padding-bottom: 64px;
+  padding-bottom: 8px;
   font-size: 13px;
   font-weight: 500;
   color: var(--gray-8);
@@ -257,10 +210,6 @@ body {
 }
 
 @media (max-width: 560px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
   .stage {
     min-height: 160px;
   }
