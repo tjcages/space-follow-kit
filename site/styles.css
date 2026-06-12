@@ -309,6 +309,18 @@ body {
   will-change: transform, opacity;
 }
 
+/* Floating shared-element image: only resizes during the morph, never blurs */
+.hero-proxy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  object-fit: cover;
+  border-radius: 10px;
+  pointer-events: none;
+  will-change: transform;
+}
+
 /* Liquid-glass control recipe: translucent capsule + backdrop blur +
    top highlight rim + soft ambient shadow */
 .glass {
