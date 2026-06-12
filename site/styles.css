@@ -77,7 +77,6 @@ body {
 
 .stage {
   border-radius: 14px;
-  border: 1px solid var(--ring);
   background: var(--surface);
   padding: 12px;
   margin-bottom: 14px;
@@ -86,7 +85,6 @@ body {
 .hero-image {
   width: 100%;
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
   display: block;
 }
@@ -100,7 +98,6 @@ body {
 
 .card {
   appearance: none;
-  border: 1px solid var(--ring);
   border-radius: 11px;
   background: var(--surface);
   padding: 10px 11px;
@@ -145,7 +142,6 @@ body {
 pre {
   margin: 0;
   background: var(--surface-soft);
-  border: 1px solid var(--ring);
   border-radius: 10px;
   padding: 12px 13px;
   overflow-x: auto;
