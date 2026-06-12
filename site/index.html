@@ -12,31 +12,6 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <!-- Shared preview artwork: mini preview on cards, hero in the detail view -->
-    <svg style="display: none" aria-hidden="true">
-      <symbol id="art-spaces" viewBox="0 0 400 230">
-        <rect x="28" y="26" width="158" height="118" rx="10" fill="#ffffff" stroke="#e8e9ec" />
-        <circle cx="44" cy="42" r="3.5" fill="#e3e4e8" />
-        <circle cx="56" cy="42" r="3.5" fill="#e3e4e8" />
-        <circle cx="68" cy="42" r="3.5" fill="#e3e4e8" />
-        <rect x="42" y="58" width="90" height="8" rx="4" fill="#ededef" />
-        <rect x="42" y="74" width="120" height="8" rx="4" fill="#f2f2f4" />
-        <rect x="42" y="90" width="104" height="8" rx="4" fill="#f2f2f4" />
-        <rect x="214" y="26" width="158" height="118" rx="10" fill="#ffffff" stroke="#e8e9ec" />
-        <circle cx="230" cy="42" r="3.5" fill="#e3e4e8" />
-        <circle cx="242" cy="42" r="3.5" fill="#e3e4e8" />
-        <circle cx="254" cy="42" r="3.5" fill="#e3e4e8" />
-        <rect x="228" y="58" width="90" height="8" rx="4" fill="#ededef" />
-        <rect x="228" y="74" width="120" height="8" rx="4" fill="#f2f2f4" />
-        <rect x="228" y="90" width="104" height="8" rx="4" fill="#f2f2f4" />
-        <rect x="148" y="118" width="104" height="72" rx="9" fill="#ffffff" stroke="#dcdde2" />
-        <circle cx="163" cy="133" r="3" fill="#3b82f6" />
-        <rect x="173" y="130" width="46" height="6" rx="3" fill="#ededef" />
-        <rect x="161" y="147" width="80" height="6" rx="3" fill="#f2f2f4" />
-        <rect x="161" y="159" width="64" height="6" rx="3" fill="#f2f2f4" />
-        <rect x="161" y="171" width="72" height="6" rx="3" fill="#f2f2f4" />
-      </symbol>
-    </svg>
     <main class="root">
       <section id="home-screen" class="home-screen" aria-label="Package home">
         <div class="home-cards">
@@ -52,11 +27,11 @@
               </span>
               <span class="card-subject">SpaceFollowKit</span>
               <span class="card-snippet">Deterministic macOS Space handoff for real floating subwindows. Correct z-order, no swipe-time glitch — SwiftUI-friendly, zero configuration.</span>
-              <span class="card-preview"><svg class="preview-art" aria-hidden="true"><use href="#art-spaces" /></svg></span>
+              <img class="card-preview preview-art" src="./preview.png" alt="" draggable="false" />
               <span class="mini-actions">
-                <span class="mini-pill">GitHub</span>
-                <span class="mini-pill">Docs</span>
-                <span class="mini-pill">npm</span>
+                <span class="mini-pill glass">GitHub</span>
+                <span class="mini-pill glass">Docs</span>
+                <span class="mini-pill glass">npm</span>
               </span>
             </span>
           </button>
@@ -72,11 +47,11 @@
               </span>
               <span class="card-subject">SpaceFollowKit</span>
               <span class="card-snippet">Deterministic macOS Space handoff for real floating subwindows. Correct z-order, no swipe-time glitch — SwiftUI-friendly, zero configuration.</span>
-              <span class="card-preview"><svg class="preview-art" aria-hidden="true"><use href="#art-spaces" /></svg></span>
+              <img class="card-preview preview-art" src="./preview.png" alt="" draggable="false" />
               <span class="mini-actions">
-                <span class="mini-pill">GitHub</span>
-                <span class="mini-pill">Docs</span>
-                <span class="mini-pill">npm</span>
+                <span class="mini-pill glass">GitHub</span>
+                <span class="mini-pill glass">Docs</span>
+                <span class="mini-pill glass">npm</span>
               </span>
             </span>
           </button>
@@ -92,11 +67,11 @@
               </span>
               <span class="card-subject">SpaceFollowKit</span>
               <span class="card-snippet">Deterministic macOS Space handoff for real floating subwindows. Correct z-order, no swipe-time glitch — SwiftUI-friendly, zero configuration.</span>
-              <span class="card-preview"><svg class="preview-art" aria-hidden="true"><use href="#art-spaces" /></svg></span>
+              <img class="card-preview preview-art" src="./preview.png" alt="" draggable="false" />
               <span class="mini-actions">
-                <span class="mini-pill">GitHub</span>
-                <span class="mini-pill">Docs</span>
-                <span class="mini-pill">npm</span>
+                <span class="mini-pill glass">GitHub</span>
+                <span class="mini-pill glass">Docs</span>
+                <span class="mini-pill glass">npm</span>
               </span>
             </span>
           </button>
@@ -112,11 +87,11 @@
               </span>
               <span class="card-subject">SpaceFollowKit</span>
               <span class="card-snippet">Deterministic macOS Space handoff for real floating subwindows. Correct z-order, no swipe-time glitch — SwiftUI-friendly, zero configuration.</span>
-              <span class="card-preview"><svg class="preview-art" aria-hidden="true"><use href="#art-spaces" /></svg></span>
+              <img class="card-preview preview-art" src="./preview.png" alt="" draggable="false" />
               <span class="mini-actions">
-                <span class="mini-pill">GitHub</span>
-                <span class="mini-pill">Docs</span>
-                <span class="mini-pill">npm</span>
+                <span class="mini-pill glass">GitHub</span>
+                <span class="mini-pill glass">Docs</span>
+                <span class="mini-pill glass">npm</span>
               </span>
             </span>
           </button>
@@ -133,8 +108,9 @@
       <div class="detail-frame">
         <div id="detail-anchor" class="detail-anchor" aria-hidden="true"></div>
         <article id="detail-shell" class="detail-shell" aria-label="Package detail">
+          <div id="detail-content" class="detail-content">
           <header id="detail-topbar" class="detail-topbar">
-            <button type="button" class="back-button" id="back-button" aria-label="Back to packages">←</button>
+            <button type="button" class="back-button glass" id="back-button" aria-label="Back to packages">←</button>
             <div class="topbar-title">
               <strong>SpaceFollowKit</strong><span id="detail-package"> · Package 1</span>
             </div>
@@ -149,8 +125,8 @@
               <h1 class="mail-subject">SpaceFollowKit</h1>
             </div>
 
-            <figure class="mail-hero" aria-hidden="true">
-              <svg class="preview-art"><use href="#art-spaces" /></svg>
+            <figure class="mail-hero">
+              <img class="preview-art" src="./preview.png" alt="SpaceFollowKit subwindow preview" draggable="false" />
             </figure>
 
             <div class="mail-body">
@@ -181,9 +157,9 @@ Window("Quick Capture", id: "quick-capture") {
             </section>
 
             <div class="mail-actions">
-              <a class="pill-button" href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a class="pill-button" href="https://github.com/tjcages/space-follow-kit#readme" target="_blank" rel="noopener noreferrer">Docs</a>
-              <a class="pill-button" href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">npm</a>
+              <a class="pill-button glass" href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a class="pill-button glass" href="https://github.com/tjcages/space-follow-kit#readme" target="_blank" rel="noopener noreferrer">Docs</a>
+              <a class="pill-button glass" href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">npm</a>
             </div>
             <button type="button" class="more-actions" id="esc-hint">
               <span class="keycap">esc</span>
@@ -203,15 +179,15 @@ Window("Quick Capture", id: "quick-capture") {
               </nav>
             </footer>
           </div>
+          </div>
 
-          <!-- Replica of the clicked card, used for the cross-dissolve while the shell morphs -->
+          <!-- Replica of the clicked card; zooms and dissolves into the content during the morph -->
           <div id="card-face" class="card-face" aria-hidden="true"></div>
         </article>
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
     <script>
       (() => {
@@ -223,9 +199,10 @@ Window("Quick Capture", id: "quick-capture") {
         };
 
         const layer = document.getElementById("detail-layer");
+        const frame = document.querySelector(".detail-frame");
         const anchor = document.getElementById("detail-anchor");
         const shell = document.getElementById("detail-shell");
-        const topbar = document.getElementById("detail-topbar");
+        const content = document.getElementById("detail-content");
         const scroll = document.getElementById("detail-scroll");
         const face = document.getElementById("card-face");
         const backButton = document.getElementById("back-button");
@@ -233,13 +210,38 @@ Window("Quick Capture", id: "quick-capture") {
         const detailPackage = document.getElementById("detail-package");
         const homeCards = Array.from(document.querySelectorAll(".home-card"));
 
-        gsap.registerPlugin(Flip, CustomEase);
+        gsap.registerPlugin(CustomEase);
 
-        // iOS drill-in curve — the App Store card expansion feel.
-        const cardEase = CustomEase.create("cardEase", "0.32, 0.72, 0, 1");
+        // Pin the shell absolutely inside the frame at an arbitrary viewport
+        // rect. Geometry is tweened by hand (not Flip.fit) because Flip's
+        // animated fit snaps size immediately and only glides position — the
+        // container must truly grow from the card for the morph to read as
+        // one element.
+        function shellRectProps(rect, frameRect) {
+          return {
+            width: rect.width,
+            height: rect.height,
+            x: rect.left - frameRect.left,
+            y: rect.top - frameRect.top,
+          };
+        }
+
+        function pinShell(rect, frameRect) {
+          gsap.set(shell, {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            ...shellRectProps(rect, frameRect),
+          });
+        }
+
+        // Fast-start, long-settle curve (Apple zoom feel): the morph launches
+        // at full velocity from the tap and decelerates into place — this is
+        // where the "momentum" comes from. Never use an in-out curve here.
+        const zoomEase = CustomEase.create("zoomEase", "0.16, 1, 0.3, 1");
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const OPEN_DURATION = reduceMotion ? 0 : 0.7;
-        const CLOSE_DURATION = reduceMotion ? 0 : 0.55;
+        const OPEN_DURATION = reduceMotion ? 0 : 0.65;
+        const CLOSE_DURATION = reduceMotion ? 0 : 0.5;
 
         let state = ViewState.HOME;
         let selectedIndex = 0;
@@ -271,29 +273,34 @@ Window("Quick Capture", id: "quick-capture") {
 
           detailPackage.textContent = ` · Package ${index + 1}`;
 
-          // Pin both panes absolutely at their final geometry: the expanding
-          // shell then does zero internal layout per frame — it purely clips
-          // and reveals a static layer, which is what keeps the morph smooth.
+          // Zoom morph: the detail content is pinned at its final geometry but
+          // scaled down so it is exactly card-sized at the card's origin, then
+          // it inflates in lockstep with the container while the card face
+          // inflates and dissolves into it. Both layers always share the
+          // container's edges, so it reads as ONE element growing — never a
+          // new element opening on top.
+          const frameRect = frame.getBoundingClientRect();
           const anchorRect = anchor.getBoundingClientRect();
-          const topbarHeight = topbar.offsetHeight;
+          const cardRect = card.getBoundingClientRect();
+          const ratio = cardRect.width / anchorRect.width;
           prepareFace(card);
           scroll.scrollTop = 0;
-          gsap.set(topbar, { position: "absolute", top: 0, left: 0, width: anchorRect.width, opacity: 0, y: 16 });
-          gsap.set(scroll, {
+          gsap.set(content, {
             position: "absolute",
-            top: topbarHeight,
+            top: 0,
             left: 0,
             width: anchorRect.width,
-            height: anchorRect.height - topbarHeight,
+            height: anchorRect.height,
+            transformOrigin: "0 0",
+            scale: ratio,
             opacity: 0,
-            y: 16,
-            overflow: "hidden",
           });
-          gsap.set(face, { opacity: 1, visibility: "visible" });
+          gsap.set(scroll, { overflow: "hidden" });
+          gsap.set(face, { opacity: 1, visibility: "visible", transformOrigin: "0 0", scale: 1 });
 
           // Place the shell pixel-for-pixel over the clicked card, then swap
           // visibility within the same frame — no flicker, no visible cut.
-          Flip.fit(shell, card, { absolute: true });
+          pinShell(cardRect, frameRect);
           gsap.set(layer, { autoAlpha: 1 });
           gsap.set(card, { autoAlpha: 0 });
           layer.setAttribute("aria-hidden", "false");
@@ -303,16 +310,23 @@ Window("Quick Capture", id: "quick-capture") {
             onComplete: () => {
               // Hand everything back to CSS layout so window resizes keep working.
               gsap.set(shell, { clearProps: "all" });
-              gsap.set([topbar, scroll], { clearProps: "position,top,left,width,height,transform,opacity,overflow" });
-              gsap.set(face, { visibility: "hidden" });
+              gsap.set(content, { clearProps: "position,top,left,width,height,transform,opacity" });
+              gsap.set(scroll, { clearProps: "overflow" });
+              gsap.set(face, { visibility: "hidden", clearProps: "transform" });
               setState(ViewState.DETAIL);
             },
           });
 
-          tl.add(Flip.fit(shell, anchor, { duration: OPEN_DURATION, ease: cardEase, absolute: true }), 0);
-          tl.to(face, { opacity: 0, duration: OPEN_DURATION * 0.45, ease: "power1.out" }, OPEN_DURATION * 0.08);
-          tl.to([topbar, scroll], { opacity: 1, y: 0, duration: OPEN_DURATION * 0.6, ease: "power2.out" }, OPEN_DURATION * 0.3);
-          tl.to(others, { opacity: 0.2, scale: 0.96, duration: OPEN_DURATION * 0.6, ease: "power2.out" }, 0);
+          // Container and both content layers share one ease + duration so
+          // their edges track each other exactly, frame for frame.
+          tl.to(shell, { ...shellRectProps(anchorRect, frameRect), duration: OPEN_DURATION, ease: zoomEase }, 0);
+          tl.to(content, { scale: 1, duration: OPEN_DURATION, ease: zoomEase }, 0);
+          tl.to(face, { scale: 1 / ratio, duration: OPEN_DURATION, ease: zoomEase }, 0);
+          // Outgoing layer must die fast — a half-visible inflated card face
+          // mid-flight reads as two elements instead of one morphing surface.
+          tl.to(content, { opacity: 1, duration: OPEN_DURATION * 0.38, ease: "power1.inOut" }, OPEN_DURATION * 0.04);
+          tl.to(face, { opacity: 0, duration: OPEN_DURATION * 0.28, ease: "power1.inOut" }, OPEN_DURATION * 0.02);
+          tl.to(others, { opacity: 0.2, scale: 0.96, duration: OPEN_DURATION * 0.55, ease: zoomEase }, 0);
         }
 
         function closeDetail() {
@@ -320,20 +334,26 @@ Window("Quick Capture", id: "quick-capture") {
           setState(ViewState.CLOSING);
 
           const card = homeCards[selectedIndex];
-          // Same pane-pinning as open: freeze internal layout before shrinking.
+          // Reverse zoom: content deflates toward the card's size while the
+          // face shrinks from inflated down to exactly card scale, landing
+          // pixel-perfect on the card it came from.
+          const frameRect = frame.getBoundingClientRect();
           const anchorRect = anchor.getBoundingClientRect();
-          const topbarHeight = topbar.offsetHeight;
+          const cardRect = card.getBoundingClientRect();
+          const ratio = cardRect.width / anchorRect.width;
           prepareFace(card);
-          gsap.set(face, { opacity: 0, visibility: "visible" });
-          gsap.set(topbar, { position: "absolute", top: 0, left: 0, width: anchorRect.width });
-          gsap.set(scroll, {
+          pinShell(anchorRect, frameRect);
+          gsap.set(face, { opacity: 0, visibility: "visible", transformOrigin: "0 0", scale: 1 / ratio });
+          gsap.set(content, {
             position: "absolute",
-            top: topbarHeight,
+            top: 0,
             left: 0,
             width: anchorRect.width,
-            height: anchorRect.height - topbarHeight,
-            overflow: "hidden",
+            height: anchorRect.height,
+            transformOrigin: "0 0",
+            scale: 1,
           });
+          gsap.set(scroll, { overflow: "hidden" });
 
           const others = homeCards.filter((_, i) => i !== selectedIndex);
           const tl = gsap.timeline({
@@ -344,17 +364,20 @@ Window("Quick Capture", id: "quick-capture") {
               gsap.set(layer, { autoAlpha: 0 });
               layer.setAttribute("aria-hidden", "true");
               gsap.set(shell, { clearProps: "all" });
-              gsap.set([topbar, scroll], { clearProps: "position,top,left,width,height,transform,opacity,overflow" });
-              gsap.set(face, { visibility: "hidden" });
+              gsap.set(content, { clearProps: "position,top,left,width,height,transform,opacity" });
+              gsap.set(scroll, { clearProps: "overflow" });
+              gsap.set(face, { visibility: "hidden", clearProps: "transform" });
               setHomeInteraction(true);
               setState(ViewState.HOME);
             },
           });
 
-          tl.add(Flip.fit(shell, card, { duration: CLOSE_DURATION, ease: cardEase, absolute: true }), 0);
-          tl.to([topbar, scroll], { opacity: 0, duration: CLOSE_DURATION * 0.4, ease: "power1.out" }, 0);
-          tl.to(face, { opacity: 1, duration: CLOSE_DURATION * 0.5, ease: "power1.out" }, CLOSE_DURATION * 0.35);
-          tl.to(others, { opacity: 1, scale: 1, duration: CLOSE_DURATION * 0.7, ease: "power2.out" }, CLOSE_DURATION * 0.15);
+          tl.to(shell, { ...shellRectProps(cardRect, frameRect), duration: CLOSE_DURATION, ease: zoomEase }, 0);
+          tl.to(content, { scale: ratio, duration: CLOSE_DURATION, ease: zoomEase }, 0);
+          tl.to(face, { scale: 1, duration: CLOSE_DURATION, ease: zoomEase }, 0);
+          tl.to(content, { opacity: 0, duration: CLOSE_DURATION * 0.3, ease: "power1.inOut" }, CLOSE_DURATION * 0.02);
+          tl.to(face, { opacity: 1, duration: CLOSE_DURATION * 0.4, ease: "power1.inOut" }, CLOSE_DURATION * 0.1);
+          tl.to(others, { opacity: 1, scale: 1, duration: CLOSE_DURATION * 0.6, ease: zoomEase }, CLOSE_DURATION * 0.1);
         }
 
         homeCards.forEach((card) => {

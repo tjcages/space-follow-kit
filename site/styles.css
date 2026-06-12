@@ -188,16 +188,14 @@ body {
 }
 
 .card-preview {
+  flex: none;
+  display: block;
   margin-top: 12px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
   border-radius: 10px;
   background: var(--gray-2);
-  overflow: hidden;
-}
-
-.preview-art {
-  display: block;
-  width: 100%;
-  aspect-ratio: 400 / 230;
 }
 
 .mini-actions {
@@ -212,9 +210,7 @@ body {
   font-size: 11px;
   font-weight: 500;
   line-height: 1;
-  padding: 7px 11px;
-  border-radius: 9px;
-  background: var(--gray-2);
+  padding: 7px 12px;
   color: var(--gray-11);
 }
 
@@ -254,6 +250,15 @@ body {
   overflow: hidden;
   pointer-events: auto;
   will-change: transform;
+}
+
+/* Single zoomable unit (topbar + scroll) so the morph scales one layer */
+.detail-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  will-change: transform, opacity;
 }
 
 .detail-topbar {
@@ -307,27 +312,45 @@ body {
   visibility: hidden;
   border-radius: inherit;
   pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Liquid-glass control recipe: translucent capsule + backdrop blur +
+   top highlight rim + soft ambient shadow */
+.glass {
+  border-radius: 999px;
+  background: rgba(252, 252, 253, 0.6);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.45),
+    0 1px 2px rgba(15, 23, 42, 0.07),
+    0 5px 16px rgba(15, 23, 42, 0.07);
+  transition: background-color 160ms ease-out, box-shadow 160ms ease-out;
+}
+
+.glass:hover {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.55),
+    0 2px 4px rgba(15, 23, 42, 0.08),
+    0 8px 22px rgba(15, 23, 42, 0.1);
+}
+
+.glass:active {
+  transform: scale(0.97);
 }
 
 .back-button {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: grid;
   place-items: center;
   font-size: 16px;
   color: var(--gray-12);
-  background: transparent;
-  border-radius: 999px;
   cursor: pointer;
-  transition: background-color 150ms ease-out;
-}
-
-.back-button:hover {
-  background: var(--gray-3);
-}
-
-.back-button:active {
-  transform: scale(0.96);
 }
 
 /* Mail-style header block */
@@ -372,10 +395,11 @@ body {
   overflow: hidden;
 }
 
-/* block + auto margins (not flex) so aspect-ratio controls the height */
 .mail-hero .preview-art {
-  width: min(100%, 640px);
-  margin: 0 auto;
+  display: block;
+  width: 100%;
+  max-height: 440px;
+  object-fit: cover;
 }
 
 .mail-body {
@@ -445,22 +469,10 @@ body {
 }
 
 .pill-button {
-  padding: 12px 22px;
-  border-radius: 14px;
-  background: var(--gray-2);
+  padding: 12px 24px;
   font-size: 14px;
   font-weight: 500;
-  color: var(--gray-11);
-  transition: background-color 150ms ease-out, color 150ms ease-out;
-}
-
-.pill-button:hover {
-  background: var(--gray-3);
   color: var(--gray-12);
-}
-
-.pill-button:active {
-  transform: scale(0.98);
 }
 
 .more-actions {
@@ -483,10 +495,14 @@ body {
 .keycap {
   font-size: 11px;
   font-weight: 500;
-  padding: 2px 6px;
-  border: 1px solid var(--gray-6);
-  border-radius: 5px;
-  background: #ffffff;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: rgba(252, 252, 253, 0.7);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  backdrop-filter: blur(12px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 2px rgba(15, 23, 42, 0.1);
   color: var(--gray-11);
 }
 
