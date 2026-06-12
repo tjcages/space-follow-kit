@@ -294,9 +294,10 @@ Window("Quick Capture", id: "quick-capture") {
             transformOrigin: "0 0",
             scale: ratio,
             opacity: 0,
+            filter: "blur(14px)",
           });
           gsap.set(scroll, { overflow: "hidden" });
-          gsap.set(face, { opacity: 1, visibility: "visible", transformOrigin: "0 0", scale: 1 });
+          gsap.set(face, { opacity: 1, visibility: "visible", transformOrigin: "0 0", scale: 1, filter: "blur(0px)" });
 
           // Place the shell pixel-for-pixel over the clicked card, then swap
           // visibility within the same frame — no flicker, no visible cut.
@@ -310,9 +311,9 @@ Window("Quick Capture", id: "quick-capture") {
             onComplete: () => {
               // Hand everything back to CSS layout so window resizes keep working.
               gsap.set(shell, { clearProps: "all" });
-              gsap.set(content, { clearProps: "position,top,left,width,height,transform,opacity" });
+              gsap.set(content, { clearProps: "position,top,left,width,height,transform,opacity,filter" });
               gsap.set(scroll, { clearProps: "overflow" });
-              gsap.set(face, { visibility: "hidden", clearProps: "transform" });
+              gsap.set(face, { visibility: "hidden", clearProps: "transform,filter" });
               setState(ViewState.DETAIL);
             },
           });
@@ -322,10 +323,13 @@ Window("Quick Capture", id: "quick-capture") {
           tl.to(shell, { ...shellRectProps(anchorRect, frameRect), duration: OPEN_DURATION, ease: zoomEase }, 0);
           tl.to(content, { scale: 1, duration: OPEN_DURATION, ease: zoomEase }, 0);
           tl.to(face, { scale: 1 / ratio, duration: OPEN_DURATION, ease: zoomEase }, 0);
-          // Outgoing layer must die fast — a half-visible inflated card face
-          // mid-flight reads as two elements instead of one morphing surface.
-          tl.to(content, { opacity: 1, duration: OPEN_DURATION * 0.38, ease: "power1.inOut" }, OPEN_DURATION * 0.04);
-          tl.to(face, { opacity: 0, duration: OPEN_DURATION * 0.28, ease: "power1.inOut" }, OPEN_DURATION * 0.02);
+          // Cross-blur: minimized face snaps out fast (fade + blur), maximized
+          // content resolves in slowly from a blur over most of the morph.
+          // (face blur is small: filter applies pre-transform, so it's
+          // magnified by the face's growing scale — and stays cheap to paint)
+          tl.to(face, { opacity: 0, filter: "blur(5px)", duration: OPEN_DURATION * 0.25, ease: "power1.out" }, 0);
+          tl.to(content, { opacity: 1, duration: OPEN_DURATION * 0.65, ease: "power1.inOut" }, OPEN_DURATION * 0.08);
+          tl.to(content, { filter: "blur(0px)", duration: OPEN_DURATION * 0.85, ease: "power1.out" }, OPEN_DURATION * 0.06);
           tl.to(others, { opacity: 0.2, scale: 0.96, duration: OPEN_DURATION * 0.55, ease: zoomEase }, 0);
         }
 
@@ -343,7 +347,7 @@ Window("Quick Capture", id: "quick-capture") {
           const ratio = cardRect.width / anchorRect.width;
           prepareFace(card);
           pinShell(anchorRect, frameRect);
-          gsap.set(face, { opacity: 0, visibility: "visible", transformOrigin: "0 0", scale: 1 / ratio });
+          gsap.set(face, { opacity: 0, visibility: "visible", transformOrigin: "0 0", scale: 1 / ratio, filter: "blur(4px)" });
           gsap.set(content, {
             position: "absolute",
             top: 0,
@@ -352,6 +356,7 @@ Window("Quick Capture", id: "quick-capture") {
             height: anchorRect.height,
             transformOrigin: "0 0",
             scale: 1,
+            filter: "blur(0px)",
           });
           gsap.set(scroll, { overflow: "hidden" });
 
@@ -364,9 +369,9 @@ Window("Quick Capture", id: "quick-capture") {
               gsap.set(layer, { autoAlpha: 0 });
               layer.setAttribute("aria-hidden", "true");
               gsap.set(shell, { clearProps: "all" });
-              gsap.set(content, { clearProps: "position,top,left,width,height,transform,opacity" });
+              gsap.set(content, { clearProps: "position,top,left,width,height,transform,opacity,filter" });
               gsap.set(scroll, { clearProps: "overflow" });
-              gsap.set(face, { visibility: "hidden", clearProps: "transform" });
+              gsap.set(face, { visibility: "hidden", clearProps: "transform,filter" });
               setHomeInteraction(true);
               setState(ViewState.HOME);
             },
@@ -375,8 +380,11 @@ Window("Quick Capture", id: "quick-capture") {
           tl.to(shell, { ...shellRectProps(cardRect, frameRect), duration: CLOSE_DURATION, ease: zoomEase }, 0);
           tl.to(content, { scale: ratio, duration: CLOSE_DURATION, ease: zoomEase }, 0);
           tl.to(face, { scale: 1, duration: CLOSE_DURATION, ease: zoomEase }, 0);
-          tl.to(content, { opacity: 0, duration: CLOSE_DURATION * 0.3, ease: "power1.inOut" }, CLOSE_DURATION * 0.02);
-          tl.to(face, { opacity: 1, duration: CLOSE_DURATION * 0.4, ease: "power1.inOut" }, CLOSE_DURATION * 0.1);
+          // Mirror of the open: maximized content snaps out fast (fade + blur),
+          // minimized face resolves in slowly and lands fully crisp.
+          tl.to(content, { opacity: 0, filter: "blur(10px)", duration: CLOSE_DURATION * 0.25, ease: "power1.out" }, 0);
+          tl.to(face, { opacity: 1, duration: CLOSE_DURATION * 0.6, ease: "power1.inOut" }, CLOSE_DURATION * 0.1);
+          tl.to(face, { filter: "blur(0px)", duration: CLOSE_DURATION * 0.8, ease: "power1.out" }, CLOSE_DURATION * 0.1);
           tl.to(others, { opacity: 1, scale: 1, duration: CLOSE_DURATION * 0.6, ease: zoomEase }, CLOSE_DURATION * 0.1);
         }
 
