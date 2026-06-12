@@ -205,6 +205,11 @@ body {
   pointer-events: none;
 }
 
+/* At rest in detail state the layer catches backdrop clicks (dismiss) */
+.detail-layer[data-state="detail"] {
+  pointer-events: auto;
+}
+
 .detail-frame {
   position: relative;
   width: min(100%, 940px);

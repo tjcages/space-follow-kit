@@ -424,6 +424,9 @@ Window("Quick Capture", id: "quick-capture") {
 
         backButton.addEventListener("click", closeDetail);
         escHint.addEventListener("click", closeDetail);
+        layer.addEventListener("click", (event) => {
+          if (!shell.contains(event.target)) closeDetail();
+        });
         window.addEventListener("keydown", (event) => {
           if (event.key === "Escape") closeDetail();
         });
