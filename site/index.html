@@ -135,7 +135,8 @@ Window("Quick Capture", id: "quick-capture") {
         </footer>
       </section>
     </main>
-
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
     <script>
       (() => {
         const homeScreen = document.getElementById("home-screen");
@@ -146,6 +147,13 @@ Window("Quick Capture", id: "quick-capture") {
 
         const tabs = Array.from(document.querySelectorAll(".package-tab"));
         const focus = document.getElementById("package-focus");
+        const hasFlip =
+          typeof window.gsap !== "undefined" &&
+          typeof window.Flip !== "undefined";
+
+        if (hasFlip) {
+          window.gsap.registerPlugin(window.Flip);
+        }
         const payload = {
           0: {
             source: "space-follow-kit",
@@ -187,13 +195,76 @@ Window("Quick Capture", id: "quick-capture") {
           focus.querySelector(".focus-copy").textContent = data.copy;
         }
 
-        function openDetail(index) {
-          if (!homeScreen || !detailScreen) return;
-          homeScreen.classList.add("is-hidden");
+        function detailRect() {
+          if (!detailScreen) return null;
           detailScreen.classList.remove("is-hidden");
+          detailScreen.classList.add("is-measuring");
+          const rect = detailScreen.getBoundingClientRect();
+          detailScreen.classList.remove("is-measuring");
+          detailScreen.classList.add("is-hidden");
+          return rect;
+        }
+
+        function openDetail(index, sourceCard) {
+          if (!homeScreen || !detailScreen) return;
           if (detailPackage) detailPackage.textContent = `SpaceFollowKit · Package ${index + 1}`;
           render(index);
-          window.scrollTo({ top: 0, behavior: "instant" });
+
+          const doOpen = () => {
+            homeScreen.classList.add("is-hidden");
+            detailScreen.classList.remove("is-hidden");
+            window.scrollTo({ top: 0, behavior: "instant" });
+          };
+
+          if (!hasFlip || !sourceCard) {
+            doOpen();
+            return;
+          }
+
+          const target = detailRect();
+          if (!target) {
+            doOpen();
+            return;
+          }
+
+          const clone = sourceCard.cloneNode(true);
+          clone.classList.add("flip-clone");
+          document.body.appendChild(clone);
+
+          const source = sourceCard.getBoundingClientRect();
+          window.gsap.set(clone, {
+            position: "fixed",
+            top: source.top,
+            left: source.left,
+            width: source.width,
+            height: source.height,
+            margin: 0,
+            zIndex: 9999,
+          });
+
+          const state = window.Flip.getState(clone);
+          window.gsap.set(clone, {
+            top: target.top,
+            left: target.left,
+            width: target.width,
+            height: target.height,
+            borderRadius: 16,
+          });
+
+          window.Flip.from(state, {
+            duration: 0.62,
+            ease: "power3.inOut",
+            absolute: true,
+            onComplete: () => {
+              clone.remove();
+              doOpen();
+              window.gsap.fromTo(
+                detailScreen,
+                { autoAlpha: 0, y: 10 },
+                { autoAlpha: 1, y: 0, duration: 0.24, ease: "power2.out" }
+              );
+            },
+          });
         }
 
         function closeDetail() {
@@ -212,7 +283,7 @@ Window("Quick Capture", id: "quick-capture") {
         homeCards.forEach((card) => {
           card.addEventListener("click", () => {
             const index = Number(card.dataset.index || 0);
-            openDetail(index);
+            openDetail(index, card);
           });
         });
 

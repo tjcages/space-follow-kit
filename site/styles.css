@@ -131,6 +131,17 @@ body {
   min-height: calc(100vh - 64px);
 }
 
+.detail-screen.is-measuring {
+  display: flex !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.flip-clone {
+  pointer-events: none;
+  will-change: transform, width, height, top, left;
+}
+
 .detail-nav {
   display: flex;
   justify-content: space-between;
