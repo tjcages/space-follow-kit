@@ -88,21 +88,22 @@ body {
   overflow: hidden;
 }
 
+/* Card and shell share radius + shadow so the morph never has to tween
+   either (radius/shadow tweens are the classic repaint jank source) */
 .home-card {
   width: 280px;
-  aspect-ratio: 1 / 1.6;
-  border: 1px solid var(--gray-3);
-  border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
-  /* border-color only: opacity/transform are GSAP-driven during transitions,
+  aspect-ratio: 1 / 1.3;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), 0 24px 60px rgba(15, 23, 42, 0.14);
+  /* box-shadow only: opacity/transform are GSAP-driven during transitions,
      and a CSS transition on them would fight the tween */
-  transition: border-color 180ms ease-out;
+  transition: box-shadow 180ms ease-out;
   cursor: pointer;
   will-change: transform, opacity;
 }
 
 .home-card:hover {
-  border-color: var(--gray-6);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.07), 0 30px 70px rgba(15, 23, 42, 0.17);
 }
 
 .home-card:active {
@@ -180,9 +181,23 @@ body {
   line-height: 1.5;
   color: var(--gray-11);
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  flex: none;
+}
+
+.card-preview {
+  margin-top: 12px;
+  border-radius: 10px;
+  background: var(--gray-2);
+  overflow: hidden;
+}
+
+.preview-art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 400 / 230;
 }
 
 .mini-actions {
@@ -234,9 +249,8 @@ body {
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border: 1px solid var(--gray-3);
-  border-radius: 20px;
-  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.14);
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), 0 24px 60px rgba(15, 23, 42, 0.14);
   overflow: hidden;
   pointer-events: auto;
   will-change: transform;
@@ -349,6 +363,21 @@ body {
   color: var(--gray-12);
 }
 
+/* Hero preview in the expanded view */
+.mail-hero {
+  flex: none; /* parent is a flex column: don't shrink when content overflows */
+  margin-top: 28px;
+  border-radius: 14px;
+  background: var(--gray-2);
+  overflow: hidden;
+}
+
+/* block + auto margins (not flex) so aspect-ratio controls the height */
+.mail-hero .preview-art {
+  width: min(100%, 640px);
+  margin: 0 auto;
+}
+
 .mail-body {
   margin-top: 28px;
   display: flex;
@@ -358,133 +387,6 @@ body {
   font-size: 16px;
   line-height: 1.55;
   color: var(--gray-11);
-}
-
-.demo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 24px;
-  background: var(--gray-2);
-  border: 1px solid var(--gray-3);
-  border-radius: 12px;
-}
-
-.stage {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-  min-height: 330px;
-  background: none;
-  border: none;
-  border-radius: 12px;
-  padding: 16px;
-  gap: 14px;
-}
-
-.package-row {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  overflow-x: auto;
-  padding-bottom: 2px;
-}
-
-.package-tab {
-  min-width: 126px;
-  max-width: 126px;
-  min-height: 88px;
-  padding: 10px;
-  border-radius: 10px;
-  background: #ffffff;
-  border: 1px solid var(--gray-3);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
-  transition: transform 150ms ease-out, opacity 150ms ease-out, border-color 150ms ease-out;
-  opacity: 0.78;
-}
-
-.package-tab.is-selected {
-  transform: scale(1.05);
-  border-color: var(--gray-6);
-  opacity: 1;
-  z-index: 2;
-}
-
-.package-tab:active {
-  transform: scale(1.03);
-}
-
-.package-app {
-  font-size: 10px;
-  color: var(--gray-8);
-}
-
-.package-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--gray-12);
-}
-
-.package-meta {
-  font-size: 11px;
-  color: var(--gray-9);
-}
-
-.package-focus {
-  width: 100%;
-  border-radius: 12px;
-  background: #ffffff;
-  border: 1px solid var(--gray-3);
-  padding: 16px;
-  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
-  min-height: 162px;
-}
-
-.focus-head {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--gray-8);
-}
-
-.focus-title {
-  margin-top: 6px;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--gray-12);
-}
-
-.focus-copy {
-  margin-top: 8px;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--gray-11);
-  max-width: 440px;
-}
-
-.focus-actions {
-  margin-top: 12px;
-  display: flex;
-  gap: 12px;
-}
-
-.focus-actions a {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--gray-12);
-  opacity: 0.8;
-}
-
-.focus-actions a:hover {
-  opacity: 1;
 }
 
 .section {
@@ -655,21 +557,6 @@ body {
 
   .mail-subject {
     font-size: 26px;
-  }
-
-  .stage {
-    min-height: 300px;
-    padding: 12px;
-  }
-
-  .package-tab {
-    min-width: 112px;
-    max-width: 112px;
-    min-height: 78px;
-  }
-
-  .focus-title {
-    font-size: 18px;
   }
 
   .footer {

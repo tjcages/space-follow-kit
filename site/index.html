@@ -12,6 +12,31 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <!-- Shared preview artwork: mini preview on cards, hero in the detail view -->
+    <svg style="display: none" aria-hidden="true">
+      <symbol id="art-spaces" viewBox="0 0 400 230">
+        <rect x="28" y="26" width="158" height="118" rx="10" fill="#ffffff" stroke="#e8e9ec" />
+        <circle cx="44" cy="42" r="3.5" fill="#e3e4e8" />
+        <circle cx="56" cy="42" r="3.5" fill="#e3e4e8" />
+        <circle cx="68" cy="42" r="3.5" fill="#e3e4e8" />
+        <rect x="42" y="58" width="90" height="8" rx="4" fill="#ededef" />
+        <rect x="42" y="74" width="120" height="8" rx="4" fill="#f2f2f4" />
+        <rect x="42" y="90" width="104" height="8" rx="4" fill="#f2f2f4" />
+        <rect x="214" y="26" width="158" height="118" rx="10" fill="#ffffff" stroke="#e8e9ec" />
+        <circle cx="230" cy="42" r="3.5" fill="#e3e4e8" />
+        <circle cx="242" cy="42" r="3.5" fill="#e3e4e8" />
+        <circle cx="254" cy="42" r="3.5" fill="#e3e4e8" />
+        <rect x="228" y="58" width="90" height="8" rx="4" fill="#ededef" />
+        <rect x="228" y="74" width="120" height="8" rx="4" fill="#f2f2f4" />
+        <rect x="228" y="90" width="104" height="8" rx="4" fill="#f2f2f4" />
+        <rect x="148" y="118" width="104" height="72" rx="9" fill="#ffffff" stroke="#dcdde2" />
+        <circle cx="163" cy="133" r="3" fill="#3b82f6" />
+        <rect x="173" y="130" width="46" height="6" rx="3" fill="#ededef" />
+        <rect x="161" y="147" width="80" height="6" rx="3" fill="#f2f2f4" />
+        <rect x="161" y="159" width="64" height="6" rx="3" fill="#f2f2f4" />
+        <rect x="161" y="171" width="72" height="6" rx="3" fill="#f2f2f4" />
+      </symbol>
+    </svg>
     <main class="root">
       <section id="home-screen" class="home-screen" aria-label="Package home">
         <div class="home-cards">
@@ -27,6 +52,7 @@
               </span>
               <span class="card-subject">SpaceFollowKit</span>
               <span class="card-snippet">Deterministic macOS Space handoff for real floating subwindows. Correct z-order, no swipe-time glitch — SwiftUI-friendly, zero configuration.</span>
+              <span class="card-preview"><svg class="preview-art" aria-hidden="true"><use href="#art-spaces" /></svg></span>
               <span class="mini-actions">
                 <span class="mini-pill">GitHub</span>
                 <span class="mini-pill">Docs</span>
@@ -46,6 +72,7 @@
               </span>
               <span class="card-subject">SpaceFollowKit</span>
               <span class="card-snippet">Deterministic macOS Space handoff for real floating subwindows. Correct z-order, no swipe-time glitch — SwiftUI-friendly, zero configuration.</span>
+              <span class="card-preview"><svg class="preview-art" aria-hidden="true"><use href="#art-spaces" /></svg></span>
               <span class="mini-actions">
                 <span class="mini-pill">GitHub</span>
                 <span class="mini-pill">Docs</span>
@@ -65,6 +92,7 @@
               </span>
               <span class="card-subject">SpaceFollowKit</span>
               <span class="card-snippet">Deterministic macOS Space handoff for real floating subwindows. Correct z-order, no swipe-time glitch — SwiftUI-friendly, zero configuration.</span>
+              <span class="card-preview"><svg class="preview-art" aria-hidden="true"><use href="#art-spaces" /></svg></span>
               <span class="mini-actions">
                 <span class="mini-pill">GitHub</span>
                 <span class="mini-pill">Docs</span>
@@ -84,6 +112,7 @@
               </span>
               <span class="card-subject">SpaceFollowKit</span>
               <span class="card-snippet">Deterministic macOS Space handoff for real floating subwindows. Correct z-order, no swipe-time glitch — SwiftUI-friendly, zero configuration.</span>
+              <span class="card-preview"><svg class="preview-art" aria-hidden="true"><use href="#art-spaces" /></svg></span>
               <span class="mini-actions">
                 <span class="mini-pill">GitHub</span>
                 <span class="mini-pill">Docs</span>
@@ -120,6 +149,10 @@
               <h1 class="mail-subject">SpaceFollowKit</h1>
             </div>
 
+            <figure class="mail-hero" aria-hidden="true">
+              <svg class="preview-art"><use href="#art-spaces" /></svg>
+            </figure>
+
             <div class="mail-body">
               <p>Deterministic macOS Space handoff for real floating subwindows.</p>
               <p>
@@ -127,49 +160,6 @@
                 always-on-top glitch — SwiftUI-friendly, zero configuration.
               </p>
             </div>
-
-            <section class="demo" aria-label="Package tabs demo">
-              <div class="stage" role="group" aria-label="Package tabs">
-                <div class="package-row">
-                  <button type="button" class="package-tab is-selected" data-index="0">
-                    <span class="package-app">Package</span>
-                    <strong class="package-name">SpaceFollowKit</strong>
-                    <span class="package-meta">Swift · macOS</span>
-                  </button>
-                  <button type="button" class="package-tab" data-index="1">
-                    <span class="package-app">Package</span>
-                    <strong class="package-name">SpaceFollowKit</strong>
-                    <span class="package-meta">Swift · macOS</span>
-                  </button>
-                  <button type="button" class="package-tab" data-index="2">
-                    <span class="package-app">Package</span>
-                    <strong class="package-name">SpaceFollowKit</strong>
-                    <span class="package-meta">Swift · macOS</span>
-                  </button>
-                  <button type="button" class="package-tab" data-index="3">
-                    <span class="package-app">Package</span>
-                    <strong class="package-name">SpaceFollowKit</strong>
-                    <span class="package-meta">Swift · macOS</span>
-                  </button>
-                </div>
-
-                <article class="package-focus" id="package-focus" aria-live="polite">
-                  <header class="focus-head">
-                    <span class="focus-source">space-follow-kit</span>
-                    <span class="focus-version">v0.1.0</span>
-                  </header>
-                  <h3 class="focus-title">SpaceFollowKit</h3>
-                  <p class="focus-copy">
-                    Deterministic macOS Space handoff for floating subwindows with
-                    correct z-order and SwiftUI-friendly integration.
-                  </p>
-                  <div class="focus-actions">
-                    <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="https://github.com/tjcages/space-follow-kit#readme" target="_blank" rel="noopener noreferrer">Docs</a>
-                  </div>
-                </article>
-              </div>
-            </section>
 
             <section class="section">
               <h2>Installation</h2>
@@ -242,51 +232,17 @@ Window("Quick Capture", id: "quick-capture") {
         const escHint = document.getElementById("esc-hint");
         const detailPackage = document.getElementById("detail-package");
         const homeCards = Array.from(document.querySelectorAll(".home-card"));
-        const tabs = Array.from(document.querySelectorAll(".package-tab"));
-        const focus = document.getElementById("package-focus");
 
         gsap.registerPlugin(Flip, CustomEase);
 
         // iOS drill-in curve — the App Store card expansion feel.
         const cardEase = CustomEase.create("cardEase", "0.32, 0.72, 0, 1");
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const OPEN_DURATION = reduceMotion ? 0 : 0.62;
-        const CLOSE_DURATION = reduceMotion ? 0 : 0.5;
-
-        const CARD_RADIUS = 16;
-        const SHELL_RADIUS = 20;
-        const CARD_SHADOW = "0 1px 2px rgba(15, 23, 42, 0.06)";
-        const SHELL_SHADOW = "0 18px 50px rgba(15, 23, 42, 0.14)";
+        const OPEN_DURATION = reduceMotion ? 0 : 0.7;
+        const CLOSE_DURATION = reduceMotion ? 0 : 0.55;
 
         let state = ViewState.HOME;
         let selectedIndex = 0;
-
-        const payload = {
-          0: {
-            source: "space-follow-kit",
-            version: "v0.1.0",
-            title: "SpaceFollowKit",
-            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration.",
-          },
-          1: {
-            source: "space-follow-kit",
-            version: "v0.1.0",
-            title: "SpaceFollowKit",
-            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration.",
-          },
-          2: {
-            source: "space-follow-kit",
-            version: "v0.1.0",
-            title: "SpaceFollowKit",
-            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration.",
-          },
-          3: {
-            source: "space-follow-kit",
-            version: "v0.1.0",
-            title: "SpaceFollowKit",
-            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration.",
-          },
-        };
 
         function setState(next) {
           state = next;
@@ -297,19 +253,6 @@ Window("Quick Capture", id: "quick-capture") {
           homeCards.forEach((card) => {
             card.disabled = !enabled;
           });
-        }
-
-        function render(index) {
-          tabs.forEach((tab, i) => {
-            const active = i === index;
-            tab.classList.toggle("is-selected", active);
-            tab.setAttribute("aria-pressed", active ? "true" : "false");
-          });
-          const data = payload[index];
-          focus.querySelector(".focus-source").textContent = data.source;
-          focus.querySelector(".focus-version").textContent = data.version;
-          focus.querySelector(".focus-title").textContent = data.title;
-          focus.querySelector(".focus-copy").textContent = data.copy;
         }
 
         // Snapshot the clicked card into the face, frozen at the card's size so
@@ -327,19 +270,26 @@ Window("Quick Capture", id: "quick-capture") {
           setHomeInteraction(false);
 
           detailPackage.textContent = ` · Package ${index + 1}`;
-          render(index);
 
-          // Final inner width = anchor minus the shell's 1px borders.
-          const innerWidth = anchor.getBoundingClientRect().width - 2;
+          // Pin both panes absolutely at their final geometry: the expanding
+          // shell then does zero internal layout per frame — it purely clips
+          // and reveals a static layer, which is what keeps the morph smooth.
+          const anchorRect = anchor.getBoundingClientRect();
+          const topbarHeight = topbar.offsetHeight;
           prepareFace(card);
           scroll.scrollTop = 0;
-
-          // Pre-lay the detail content out at its final width: the expanding
-          // shell *reveals* it (clip) rather than reflowing it every frame.
-          gsap.set([topbar, scroll], { width: innerWidth, opacity: 0, y: 16 });
-          gsap.set(scroll, { overflow: "hidden" });
+          gsap.set(topbar, { position: "absolute", top: 0, left: 0, width: anchorRect.width, opacity: 0, y: 16 });
+          gsap.set(scroll, {
+            position: "absolute",
+            top: topbarHeight,
+            left: 0,
+            width: anchorRect.width,
+            height: anchorRect.height - topbarHeight,
+            opacity: 0,
+            y: 16,
+            overflow: "hidden",
+          });
           gsap.set(face, { opacity: 1, visibility: "visible" });
-          gsap.set(shell, { borderRadius: CARD_RADIUS, boxShadow: CARD_SHADOW });
 
           // Place the shell pixel-for-pixel over the clicked card, then swap
           // visibility within the same frame — no flicker, no visible cut.
@@ -351,16 +301,15 @@ Window("Quick Capture", id: "quick-capture") {
           const others = homeCards.filter((_, i) => i !== index);
           const tl = gsap.timeline({
             onComplete: () => {
-              // Hand the shell back to CSS layout so window resizes keep working.
+              // Hand everything back to CSS layout so window resizes keep working.
               gsap.set(shell, { clearProps: "all" });
-              gsap.set([topbar, scroll], { clearProps: "width,transform,opacity,overflow" });
+              gsap.set([topbar, scroll], { clearProps: "position,top,left,width,height,transform,opacity,overflow" });
               gsap.set(face, { visibility: "hidden" });
               setState(ViewState.DETAIL);
             },
           });
 
           tl.add(Flip.fit(shell, anchor, { duration: OPEN_DURATION, ease: cardEase, absolute: true }), 0);
-          tl.to(shell, { borderRadius: SHELL_RADIUS, boxShadow: SHELL_SHADOW, duration: OPEN_DURATION, ease: cardEase }, 0);
           tl.to(face, { opacity: 0, duration: OPEN_DURATION * 0.45, ease: "power1.out" }, OPEN_DURATION * 0.08);
           tl.to([topbar, scroll], { opacity: 1, y: 0, duration: OPEN_DURATION * 0.6, ease: "power2.out" }, OPEN_DURATION * 0.3);
           tl.to(others, { opacity: 0.2, scale: 0.96, duration: OPEN_DURATION * 0.6, ease: "power2.out" }, 0);
@@ -371,11 +320,20 @@ Window("Quick Capture", id: "quick-capture") {
           setState(ViewState.CLOSING);
 
           const card = homeCards[selectedIndex];
-          const innerWidth = anchor.getBoundingClientRect().width - 2;
+          // Same pane-pinning as open: freeze internal layout before shrinking.
+          const anchorRect = anchor.getBoundingClientRect();
+          const topbarHeight = topbar.offsetHeight;
           prepareFace(card);
           gsap.set(face, { opacity: 0, visibility: "visible" });
-          gsap.set([topbar, scroll], { width: innerWidth });
-          gsap.set(scroll, { overflow: "hidden" });
+          gsap.set(topbar, { position: "absolute", top: 0, left: 0, width: anchorRect.width });
+          gsap.set(scroll, {
+            position: "absolute",
+            top: topbarHeight,
+            left: 0,
+            width: anchorRect.width,
+            height: anchorRect.height - topbarHeight,
+            overflow: "hidden",
+          });
 
           const others = homeCards.filter((_, i) => i !== selectedIndex);
           const tl = gsap.timeline({
@@ -386,7 +344,7 @@ Window("Quick Capture", id: "quick-capture") {
               gsap.set(layer, { autoAlpha: 0 });
               layer.setAttribute("aria-hidden", "true");
               gsap.set(shell, { clearProps: "all" });
-              gsap.set([topbar, scroll], { clearProps: "width,transform,opacity,overflow" });
+              gsap.set([topbar, scroll], { clearProps: "position,top,left,width,height,transform,opacity,overflow" });
               gsap.set(face, { visibility: "hidden" });
               setHomeInteraction(true);
               setState(ViewState.HOME);
@@ -394,17 +352,10 @@ Window("Quick Capture", id: "quick-capture") {
           });
 
           tl.add(Flip.fit(shell, card, { duration: CLOSE_DURATION, ease: cardEase, absolute: true }), 0);
-          tl.to(shell, { borderRadius: CARD_RADIUS, boxShadow: CARD_SHADOW, duration: CLOSE_DURATION, ease: cardEase }, 0);
           tl.to([topbar, scroll], { opacity: 0, duration: CLOSE_DURATION * 0.4, ease: "power1.out" }, 0);
           tl.to(face, { opacity: 1, duration: CLOSE_DURATION * 0.5, ease: "power1.out" }, CLOSE_DURATION * 0.35);
           tl.to(others, { opacity: 1, scale: 1, duration: CLOSE_DURATION * 0.7, ease: "power2.out" }, CLOSE_DURATION * 0.15);
         }
-
-        tabs.forEach((tab) => {
-          tab.addEventListener("click", () => {
-            render(Number(tab.dataset.index || 0));
-          });
-        });
 
         homeCards.forEach((card) => {
           card.addEventListener("click", () => {
