@@ -22,14 +22,16 @@
         </div>
       </header>
 
-      <p class="description">Deterministic macOS Space handoff for subwindows.</p>
+      <p class="description">Deterministic macOS Space handoff with correct z-order.</p>
 
-      <section class="stage" aria-label="Hero preview">
-        <img
-          class="hero-image"
-          src="./assets/hero.png"
-          alt="SpaceFollowKit preview window on macOS"
-        />
+      <section class="demo" aria-label="Hero preview">
+        <button type="button" class="stage" aria-label="SpaceFollowKit preview">
+          <img
+            class="hero-image"
+            src="./assets/hero.png"
+            alt="SpaceFollowKit preview window on macOS"
+          />
+        </button>
       </section>
 
       <section class="grid" aria-label="Feature cards">
@@ -39,7 +41,7 @@
         </button>
         <button type="button" class="card">
           <span class="label">Behavior</span>
-          <div class="card-content"><span class="value">Correct z-order</span></div>
+          <div class="card-content"><span class="value">Correct order</span></div>
         </button>
         <button type="button" class="card">
           <span class="label">Mode</span>
@@ -50,7 +52,7 @@
       <section class="section">
         <h2>Installation</h2>
         <div class="code-wrap">
-          <pre><code><span class="prompt">$ </span>swift package add https://github.com/tjcages/space-follow-kit.git</code></pre>
+          <pre><code><span class="prompt">$ </span>npm install space-follow-kit</code></pre>
         </div>
       </section>
 
