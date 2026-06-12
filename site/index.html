@@ -13,94 +13,137 @@
   </head>
   <body>
     <main class="root">
-      <header class="heading">
-        <h1 class="title">SpaceFollowKit</h1>
-        <div class="version">
-          <a href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">v0.1.0</a>
-          <span>/</span>
-          <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <section id="home-screen" class="home-screen" aria-label="Package home">
+        <div class="home-cards">
+          <button type="button" class="home-card" data-index="0">
+            <span class="home-card-app">Package</span>
+            <h2 class="home-card-title">SpaceFollowKit</h2>
+            <p class="home-card-copy">Deterministic macOS Space handoff.</p>
+            <span class="home-card-meta">Swift · macOS</span>
+          </button>
+          <button type="button" class="home-card" data-index="1">
+            <span class="home-card-app">Package</span>
+            <h2 class="home-card-title">SpaceFollowKit</h2>
+            <p class="home-card-copy">Deterministic macOS Space handoff.</p>
+            <span class="home-card-meta">Swift · macOS</span>
+          </button>
+          <button type="button" class="home-card" data-index="2">
+            <span class="home-card-app">Package</span>
+            <h2 class="home-card-title">SpaceFollowKit</h2>
+            <p class="home-card-copy">Deterministic macOS Space handoff.</p>
+            <span class="home-card-meta">Swift · macOS</span>
+          </button>
+          <button type="button" class="home-card" data-index="3">
+            <span class="home-card-app">Package</span>
+            <h2 class="home-card-title">SpaceFollowKit</h2>
+            <p class="home-card-copy">Deterministic macOS Space handoff.</p>
+            <span class="home-card-meta">Swift · macOS</span>
+          </button>
         </div>
-      </header>
+      </section>
 
-      <p class="description">Deterministic macOS Space handoff for real floating subwindows.</p>
+      <section id="detail-screen" class="detail-screen is-hidden" aria-label="Package detail">
+        <div class="detail-nav">
+          <button type="button" class="back-button" id="back-button">← Back</button>
+          <span class="detail-package" id="detail-package">SpaceFollowKit · Package 1</span>
+        </div>
 
-      <section class="demo" aria-label="Package tabs demo">
-        <div class="stage" role="group" aria-label="Package tabs">
-          <div class="package-row">
-            <button type="button" class="package-tab is-selected" data-index="0">
-              <span class="package-app">Package</span>
-              <strong class="package-name">SpaceFollowKit</strong>
-              <span class="package-meta">Swift · macOS</span>
-            </button>
-            <button type="button" class="package-tab" data-index="1">
-              <span class="package-app">Package</span>
-              <strong class="package-name">SpaceFollowKit</strong>
-              <span class="package-meta">Swift · macOS</span>
-            </button>
-            <button type="button" class="package-tab" data-index="2">
-              <span class="package-app">Package</span>
-              <strong class="package-name">SpaceFollowKit</strong>
-              <span class="package-meta">Swift · macOS</span>
-            </button>
-            <button type="button" class="package-tab" data-index="3">
-              <span class="package-app">Package</span>
-              <strong class="package-name">SpaceFollowKit</strong>
-              <span class="package-meta">Swift · macOS</span>
-            </button>
+        <header class="heading">
+          <h1 class="title">SpaceFollowKit</h1>
+          <div class="version">
+            <a href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">v0.1.0</a>
+            <span>/</span>
+            <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
+        </header>
 
-          <article class="package-focus" id="package-focus" aria-live="polite">
-            <header class="focus-head">
-              <span class="focus-source">space-follow-kit</span>
-              <span class="focus-version">v0.1.0</span>
-            </header>
-            <h3 class="focus-title">SpaceFollowKit</h3>
-            <p class="focus-copy">
-              Deterministic macOS Space handoff for floating subwindows with
-              correct z-order and SwiftUI-friendly integration.
-            </p>
-            <div class="focus-actions">
-              <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href="https://github.com/tjcages/space-follow-kit#readme" target="_blank" rel="noopener noreferrer">Docs</a>
+        <p class="description">Deterministic macOS Space handoff for real floating subwindows.</p>
+
+        <section class="demo" aria-label="Package tabs demo">
+          <div class="stage" role="group" aria-label="Package tabs">
+            <div class="package-row">
+              <button type="button" class="package-tab is-selected" data-index="0">
+                <span class="package-app">Package</span>
+                <strong class="package-name">SpaceFollowKit</strong>
+                <span class="package-meta">Swift · macOS</span>
+              </button>
+              <button type="button" class="package-tab" data-index="1">
+                <span class="package-app">Package</span>
+                <strong class="package-name">SpaceFollowKit</strong>
+                <span class="package-meta">Swift · macOS</span>
+              </button>
+              <button type="button" class="package-tab" data-index="2">
+                <span class="package-app">Package</span>
+                <strong class="package-name">SpaceFollowKit</strong>
+                <span class="package-meta">Swift · macOS</span>
+              </button>
+              <button type="button" class="package-tab" data-index="3">
+                <span class="package-app">Package</span>
+                <strong class="package-name">SpaceFollowKit</strong>
+                <span class="package-meta">Swift · macOS</span>
+              </button>
             </div>
-          </article>
-        </div>
-      </section>
 
-      <section class="section">
-        <h2>Installation</h2>
-        <div class="code-wrap">
-          <pre><code><span class="prompt">$ </span>swift package add https://github.com/tjcages/space-follow-kit.git</code></pre>
-        </div>
-      </section>
+            <article class="package-focus" id="package-focus" aria-live="polite">
+              <header class="focus-head">
+                <span class="focus-source">space-follow-kit</span>
+                <span class="focus-version">v0.1.0</span>
+              </header>
+              <h3 class="focus-title">SpaceFollowKit</h3>
+              <p class="focus-copy">
+                Deterministic macOS Space handoff for floating subwindows with
+                correct z-order and SwiftUI-friendly integration.
+              </p>
+              <div class="focus-actions">
+                <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://github.com/tjcages/space-follow-kit#readme" target="_blank" rel="noopener noreferrer">Docs</a>
+              </div>
+            </article>
+          </div>
+        </section>
 
-      <section class="section">
-        <h2>Usage</h2>
-        <div class="code-wrap">
-          <pre><code>import SpaceFollowKit
+        <section class="section">
+          <h2>Installation</h2>
+          <div class="code-wrap">
+            <pre><code><span class="prompt">$ </span>swift package add https://github.com/tjcages/space-follow-kit.git</code></pre>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Usage</h2>
+          <div class="code-wrap">
+            <pre><code>import SpaceFollowKit
 
 Window("Quick Capture", id: "quick-capture") {
   QuickCaptureView()
     .subwindowSpacesBehavior(storageKey: "subwindowsOnAllSpaces")
 }</code></pre>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <footer class="footer">
-        <div>
-          <a href="https://github.com/tjcages" target="_blank" rel="noopener noreferrer">ty cagle</a>
-          <span> / </span>
-          <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">SpaceFollowKit</a>
-        </div>
-        <nav class="links" aria-label="Footer links">
-          <a href="https://github.com/tjcages/space-follow-kit">home</a>
-          <a href="https://github.com/tjcages/space-follow-kit#readme">docs</a>
-          <a href="https://github.com/tjcages/space-follow-kit/issues">issues</a>
-        </nav>
-      </footer>
+        <footer class="footer">
+          <div>
+            <a href="https://github.com/tjcages" target="_blank" rel="noopener noreferrer">ty cagle</a>
+            <span> / </span>
+            <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">SpaceFollowKit</a>
+          </div>
+          <nav class="links" aria-label="Footer links">
+            <a href="https://github.com/tjcages/space-follow-kit">home</a>
+            <a href="https://github.com/tjcages/space-follow-kit#readme">docs</a>
+            <a href="https://github.com/tjcages/space-follow-kit/issues">issues</a>
+          </nav>
+        </footer>
+      </section>
     </main>
+
     <script>
       (() => {
+        const homeScreen = document.getElementById("home-screen");
+        const detailScreen = document.getElementById("detail-screen");
+        const homeCards = Array.from(document.querySelectorAll(".home-card"));
+        const backButton = document.getElementById("back-button");
+        const detailPackage = document.getElementById("detail-package");
+
         const tabs = Array.from(document.querySelectorAll(".package-tab"));
         const focus = document.getElementById("package-focus");
         const payload = {
@@ -108,26 +151,26 @@ Window("Quick Capture", id: "quick-capture") {
             source: "space-follow-kit",
             version: "v0.1.0",
             title: "SpaceFollowKit",
-            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration."
+            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration.",
           },
           1: {
             source: "space-follow-kit",
             version: "v0.1.0",
             title: "SpaceFollowKit",
-            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration."
+            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration.",
           },
           2: {
             source: "space-follow-kit",
             version: "v0.1.0",
             title: "SpaceFollowKit",
-            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration."
+            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration.",
           },
           3: {
             source: "space-follow-kit",
             version: "v0.1.0",
             title: "SpaceFollowKit",
-            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration."
-          }
+            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration.",
+          },
         };
 
         function render(index) {
@@ -144,12 +187,36 @@ Window("Quick Capture", id: "quick-capture") {
           focus.querySelector(".focus-copy").textContent = data.copy;
         }
 
+        function openDetail(index) {
+          if (!homeScreen || !detailScreen) return;
+          homeScreen.classList.add("is-hidden");
+          detailScreen.classList.remove("is-hidden");
+          if (detailPackage) detailPackage.textContent = `SpaceFollowKit · Package ${index + 1}`;
+          render(index);
+          window.scrollTo({ top: 0, behavior: "instant" });
+        }
+
+        function closeDetail() {
+          if (!homeScreen || !detailScreen) return;
+          detailScreen.classList.add("is-hidden");
+          homeScreen.classList.remove("is-hidden");
+        }
+
         tabs.forEach((tab) => {
           tab.addEventListener("click", () => {
             const index = Number(tab.dataset.index || 0);
             render(index);
           });
         });
+
+        homeCards.forEach((card) => {
+          card.addEventListener("click", () => {
+            const index = Number(card.dataset.index || 0);
+            openDetail(index);
+          });
+        });
+
+        backButton?.addEventListener("click", closeDetail);
       })();
     </script>
   </body>
