@@ -195,35 +195,21 @@ Window("Quick Capture", id: "quick-capture") {
           focus.querySelector(".focus-copy").textContent = data.copy;
         }
 
-        function detailRect() {
-          if (!detailScreen) return null;
-          detailScreen.classList.remove("is-hidden");
-          detailScreen.classList.add("is-measuring");
-          const rect = detailScreen.getBoundingClientRect();
-          detailScreen.classList.remove("is-measuring");
-          detailScreen.classList.add("is-hidden");
-          return rect;
-        }
-
         function openDetail(index, sourceCard) {
           if (!homeScreen || !detailScreen) return;
           if (detailPackage) detailPackage.textContent = `SpaceFollowKit · Package ${index + 1}`;
           render(index);
 
-          const doOpen = () => {
-            homeScreen.classList.add("is-hidden");
-            detailScreen.classList.remove("is-hidden");
-            window.scrollTo({ top: 0, behavior: "instant" });
-          };
+          detailScreen.classList.remove("is-hidden");
+          detailScreen.classList.remove("is-active");
+          detailScreen.classList.add("is-prep");
+          const target = detailScreen.getBoundingClientRect();
 
           if (!hasFlip || !sourceCard) {
-            doOpen();
-            return;
-          }
-
-          const target = detailRect();
-          if (!target) {
-            doOpen();
+            homeScreen.classList.add("is-hidden");
+            detailScreen.classList.remove("is-prep");
+            detailScreen.classList.add("is-active");
+            window.scrollTo({ top: 0, behavior: "instant" });
             return;
           }
 
@@ -257,11 +243,14 @@ Window("Quick Capture", id: "quick-capture") {
             absolute: true,
             onComplete: () => {
               clone.remove();
-              doOpen();
+              homeScreen.classList.add("is-hidden");
+              detailScreen.classList.remove("is-prep");
+              detailScreen.classList.add("is-active");
+              window.scrollTo({ top: 0, behavior: "instant" });
               window.gsap.fromTo(
                 detailScreen,
-                { autoAlpha: 0, y: 10 },
-                { autoAlpha: 1, y: 0, duration: 0.24, ease: "power2.out" }
+                { opacity: 0.85, y: 8 },
+                { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }
               );
             },
           });
@@ -269,7 +258,9 @@ Window("Quick Capture", id: "quick-capture") {
 
         function closeDetail() {
           if (!homeScreen || !detailScreen) return;
+          detailScreen.classList.remove("is-active");
           detailScreen.classList.add("is-hidden");
+          detailScreen.classList.remove("is-prep");
           homeScreen.classList.remove("is-hidden");
         }
 
