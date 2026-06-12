@@ -52,22 +52,29 @@
       <div class="detail-frame">
         <div id="detail-anchor" class="detail-anchor" aria-hidden="true"></div>
         <article id="detail-shell" class="detail-shell" aria-label="Package detail">
+          <header id="detail-topbar" class="detail-topbar">
+            <button type="button" class="back-button" id="back-button" aria-label="Back to packages">←</button>
+            <div class="topbar-title">
+              <strong>SpaceFollowKit</strong><span id="detail-package"> · Package 1</span>
+            </div>
+            <a class="topbar-action" href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </header>
           <div id="detail-scroll" class="detail-scroll">
-            <div class="detail-nav">
-              <button type="button" class="back-button" id="back-button">← Back</button>
-              <span class="detail-package" id="detail-package">SpaceFollowKit · Package 1</span>
+            <div class="mail-head">
+              <div class="mail-sender-row">
+                <span class="mail-sender">ty cagle</span>
+                <a class="mail-stamp" href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">v0.1.0</a>
+              </div>
+              <h1 class="mail-subject">SpaceFollowKit</h1>
             </div>
 
-            <header class="heading">
-              <h1 class="title">SpaceFollowKit</h1>
-              <div class="version">
-                <a href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">v0.1.0</a>
-                <span>/</span>
-                <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
-              </div>
-            </header>
-
-            <p class="description">Deterministic macOS Space handoff for real floating subwindows.</p>
+            <div class="mail-body">
+              <p>Deterministic macOS Space handoff for real floating subwindows.</p>
+              <p>
+                Subwindows follow Spaces with correct z-order and no swipe-time
+                always-on-top glitch — SwiftUI-friendly, zero configuration.
+              </p>
+            </div>
 
             <section class="demo" aria-label="Package tabs demo">
               <div class="stage" role="group" aria-label="Package tabs">
@@ -131,6 +138,16 @@ Window("Quick Capture", id: "quick-capture") {
               </div>
             </section>
 
+            <div class="mail-actions">
+              <a class="pill-button" href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a class="pill-button" href="https://github.com/tjcages/space-follow-kit#readme" target="_blank" rel="noopener noreferrer">Docs</a>
+              <a class="pill-button" href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">npm</a>
+            </div>
+            <button type="button" class="more-actions" id="esc-hint">
+              <span class="keycap">esc</span>
+              <span>Back to packages</span>
+            </button>
+
             <footer class="footer">
               <div>
                 <a href="https://github.com/tjcages" target="_blank" rel="noopener noreferrer">ty cagle</a>
@@ -166,9 +183,11 @@ Window("Quick Capture", id: "quick-capture") {
         const layer = document.getElementById("detail-layer");
         const anchor = document.getElementById("detail-anchor");
         const shell = document.getElementById("detail-shell");
+        const topbar = document.getElementById("detail-topbar");
         const scroll = document.getElementById("detail-scroll");
         const face = document.getElementById("card-face");
         const backButton = document.getElementById("back-button");
+        const escHint = document.getElementById("esc-hint");
         const detailPackage = document.getElementById("detail-package");
         const homeCards = Array.from(document.querySelectorAll(".home-card"));
         const tabs = Array.from(document.querySelectorAll(".package-tab"));
@@ -255,16 +274,18 @@ Window("Quick Capture", id: "quick-capture") {
           selectedIndex = index;
           setHomeInteraction(false);
 
-          detailPackage.textContent = `SpaceFollowKit · Package ${index + 1}`;
+          detailPackage.textContent = ` · Package ${index + 1}`;
           render(index);
 
-          const anchorWidth = anchor.getBoundingClientRect().width;
+          // Final inner width = anchor minus the shell's 1px borders.
+          const innerWidth = anchor.getBoundingClientRect().width - 2;
           prepareFace(card);
           scroll.scrollTop = 0;
 
           // Pre-lay the detail content out at its final width: the expanding
           // shell *reveals* it (clip) rather than reflowing it every frame.
-          gsap.set(scroll, { width: anchorWidth, opacity: 0, y: 16, overflow: "hidden" });
+          gsap.set([topbar, scroll], { width: innerWidth, opacity: 0, y: 16 });
+          gsap.set(scroll, { overflow: "hidden" });
           gsap.set(face, { opacity: 1, visibility: "visible" });
           gsap.set(shell, { borderRadius: CARD_RADIUS, boxShadow: CARD_SHADOW });
 
@@ -280,7 +301,7 @@ Window("Quick Capture", id: "quick-capture") {
             onComplete: () => {
               // Hand the shell back to CSS layout so window resizes keep working.
               gsap.set(shell, { clearProps: "all" });
-              gsap.set(scroll, { clearProps: "width,transform,opacity,overflow" });
+              gsap.set([topbar, scroll], { clearProps: "width,transform,opacity,overflow" });
               gsap.set(face, { visibility: "hidden" });
               setState(ViewState.DETAIL);
             },
@@ -289,7 +310,7 @@ Window("Quick Capture", id: "quick-capture") {
           tl.add(Flip.fit(shell, anchor, { duration: OPEN_DURATION, ease: cardEase, absolute: true }), 0);
           tl.to(shell, { borderRadius: SHELL_RADIUS, boxShadow: SHELL_SHADOW, duration: OPEN_DURATION, ease: cardEase }, 0);
           tl.to(face, { opacity: 0, duration: OPEN_DURATION * 0.45, ease: "power1.out" }, OPEN_DURATION * 0.08);
-          tl.to(scroll, { opacity: 1, y: 0, duration: OPEN_DURATION * 0.6, ease: "power2.out" }, OPEN_DURATION * 0.3);
+          tl.to([topbar, scroll], { opacity: 1, y: 0, duration: OPEN_DURATION * 0.6, ease: "power2.out" }, OPEN_DURATION * 0.3);
           tl.to(others, { opacity: 0.2, scale: 0.96, duration: OPEN_DURATION * 0.6, ease: "power2.out" }, 0);
         }
 
@@ -298,10 +319,11 @@ Window("Quick Capture", id: "quick-capture") {
           setState(ViewState.CLOSING);
 
           const card = homeCards[selectedIndex];
-          const anchorWidth = anchor.getBoundingClientRect().width;
+          const innerWidth = anchor.getBoundingClientRect().width - 2;
           prepareFace(card);
           gsap.set(face, { opacity: 0, visibility: "visible" });
-          gsap.set(scroll, { width: anchorWidth, overflow: "hidden" });
+          gsap.set([topbar, scroll], { width: innerWidth });
+          gsap.set(scroll, { overflow: "hidden" });
 
           const others = homeCards.filter((_, i) => i !== selectedIndex);
           const tl = gsap.timeline({
@@ -312,7 +334,7 @@ Window("Quick Capture", id: "quick-capture") {
               gsap.set(layer, { autoAlpha: 0 });
               layer.setAttribute("aria-hidden", "true");
               gsap.set(shell, { clearProps: "all" });
-              gsap.set(scroll, { clearProps: "width,transform,opacity,overflow" });
+              gsap.set([topbar, scroll], { clearProps: "width,transform,opacity,overflow" });
               gsap.set(face, { visibility: "hidden" });
               setHomeInteraction(true);
               setState(ViewState.HOME);
@@ -321,7 +343,7 @@ Window("Quick Capture", id: "quick-capture") {
 
           tl.add(Flip.fit(shell, card, { duration: CLOSE_DURATION, ease: cardEase, absolute: true }), 0);
           tl.to(shell, { borderRadius: CARD_RADIUS, boxShadow: CARD_SHADOW, duration: CLOSE_DURATION, ease: cardEase }, 0);
-          tl.to(scroll, { opacity: 0, duration: CLOSE_DURATION * 0.4, ease: "power1.out" }, 0);
+          tl.to([topbar, scroll], { opacity: 0, duration: CLOSE_DURATION * 0.4, ease: "power1.out" }, 0);
           tl.to(face, { opacity: 1, duration: CLOSE_DURATION * 0.5, ease: "power1.out" }, CLOSE_DURATION * 0.35);
           tl.to(others, { opacity: 1, scale: 1, duration: CLOSE_DURATION * 0.7, ease: "power2.out" }, CLOSE_DURATION * 0.15);
         }
@@ -339,6 +361,7 @@ Window("Quick Capture", id: "quick-capture") {
         });
 
         backButton.addEventListener("click", closeDetail);
+        escHint.addEventListener("click", closeDetail);
         window.addEventListener("keydown", (event) => {
           if (event.key === "Escape") closeDetail();
         });
