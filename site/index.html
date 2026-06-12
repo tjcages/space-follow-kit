@@ -42,111 +42,127 @@
         </div>
       </section>
 
-      <section id="detail-screen" class="detail-screen is-hidden" aria-label="Package detail">
-        <div class="detail-nav">
-          <button type="button" class="back-button" id="back-button">← Back</button>
-          <span class="detail-package" id="detail-package">SpaceFollowKit · Package 1</span>
-        </div>
-
-        <header class="heading">
-          <h1 class="title">SpaceFollowKit</h1>
-          <div class="version">
-            <a href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">v0.1.0</a>
-            <span>/</span>
-            <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
-        </header>
-
-        <p class="description">Deterministic macOS Space handoff for real floating subwindows.</p>
-
-        <section class="demo" aria-label="Package tabs demo">
-          <div class="stage" role="group" aria-label="Package tabs">
-            <div class="package-row">
-              <button type="button" class="package-tab is-selected" data-index="0">
-                <span class="package-app">Package</span>
-                <strong class="package-name">SpaceFollowKit</strong>
-                <span class="package-meta">Swift · macOS</span>
-              </button>
-              <button type="button" class="package-tab" data-index="1">
-                <span class="package-app">Package</span>
-                <strong class="package-name">SpaceFollowKit</strong>
-                <span class="package-meta">Swift · macOS</span>
-              </button>
-              <button type="button" class="package-tab" data-index="2">
-                <span class="package-app">Package</span>
-                <strong class="package-name">SpaceFollowKit</strong>
-                <span class="package-meta">Swift · macOS</span>
-              </button>
-              <button type="button" class="package-tab" data-index="3">
-                <span class="package-app">Package</span>
-                <strong class="package-name">SpaceFollowKit</strong>
-                <span class="package-meta">Swift · macOS</span>
-              </button>
+      <section id="detail-screen" class="detail-screen" aria-label="Package detail" aria-hidden="true">
+        <article class="detail-shell" id="detail-shell">
+          <div class="detail-scroll">
+            <div class="detail-nav">
+              <button type="button" class="back-button" id="back-button">← Back</button>
+              <span class="detail-package" id="detail-package">SpaceFollowKit · Package 1</span>
             </div>
 
-            <article class="package-focus" id="package-focus" aria-live="polite">
-              <header class="focus-head">
-                <span class="focus-source">space-follow-kit</span>
-                <span class="focus-version">v0.1.0</span>
-              </header>
-              <h3 class="focus-title">SpaceFollowKit</h3>
-              <p class="focus-copy">
-                Deterministic macOS Space handoff for floating subwindows with
-                correct z-order and SwiftUI-friendly integration.
-              </p>
-              <div class="focus-actions">
+            <header class="heading">
+              <h1 class="title">SpaceFollowKit</h1>
+              <div class="version">
+                <a href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">v0.1.0</a>
+                <span>/</span>
                 <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="https://github.com/tjcages/space-follow-kit#readme" target="_blank" rel="noopener noreferrer">Docs</a>
               </div>
-            </article>
-          </div>
-        </section>
+            </header>
 
-        <section class="section">
-          <h2>Installation</h2>
-          <div class="code-wrap">
-            <pre><code><span class="prompt">$ </span>swift package add https://github.com/tjcages/space-follow-kit.git</code></pre>
-          </div>
-        </section>
+            <p class="description">Deterministic macOS Space handoff for real floating subwindows.</p>
 
-        <section class="section">
-          <h2>Usage</h2>
-          <div class="code-wrap">
-            <pre><code>import SpaceFollowKit
+            <section class="demo" aria-label="Package tabs demo">
+              <div class="stage" role="group" aria-label="Package tabs">
+                <div class="package-row">
+                  <button type="button" class="package-tab is-selected" data-index="0">
+                    <span class="package-app">Package</span>
+                    <strong class="package-name">SpaceFollowKit</strong>
+                    <span class="package-meta">Swift · macOS</span>
+                  </button>
+                  <button type="button" class="package-tab" data-index="1">
+                    <span class="package-app">Package</span>
+                    <strong class="package-name">SpaceFollowKit</strong>
+                    <span class="package-meta">Swift · macOS</span>
+                  </button>
+                  <button type="button" class="package-tab" data-index="2">
+                    <span class="package-app">Package</span>
+                    <strong class="package-name">SpaceFollowKit</strong>
+                    <span class="package-meta">Swift · macOS</span>
+                  </button>
+                  <button type="button" class="package-tab" data-index="3">
+                    <span class="package-app">Package</span>
+                    <strong class="package-name">SpaceFollowKit</strong>
+                    <span class="package-meta">Swift · macOS</span>
+                  </button>
+                </div>
+
+                <article class="package-focus" id="package-focus" aria-live="polite">
+                  <header class="focus-head">
+                    <span class="focus-source">space-follow-kit</span>
+                    <span class="focus-version">v0.1.0</span>
+                  </header>
+                  <h3 class="focus-title">SpaceFollowKit</h3>
+                  <p class="focus-copy">
+                    Deterministic macOS Space handoff for floating subwindows with
+                    correct z-order and SwiftUI-friendly integration.
+                  </p>
+                  <div class="focus-actions">
+                    <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://github.com/tjcages/space-follow-kit#readme" target="_blank" rel="noopener noreferrer">Docs</a>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="section">
+              <h2>Installation</h2>
+              <div class="code-wrap">
+                <pre><code><span class="prompt">$ </span>swift package add https://github.com/tjcages/space-follow-kit.git</code></pre>
+              </div>
+            </section>
+
+            <section class="section">
+              <h2>Usage</h2>
+              <div class="code-wrap">
+                <pre><code>import SpaceFollowKit
 
 Window("Quick Capture", id: "quick-capture") {
   QuickCaptureView()
     .subwindowSpacesBehavior(storageKey: "subwindowsOnAllSpaces")
 }</code></pre>
-          </div>
-        </section>
+              </div>
+            </section>
 
-        <footer class="footer">
-          <div>
-            <a href="https://github.com/tjcages" target="_blank" rel="noopener noreferrer">ty cagle</a>
-            <span> / </span>
-            <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">SpaceFollowKit</a>
+            <footer class="footer">
+              <div>
+                <a href="https://github.com/tjcages" target="_blank" rel="noopener noreferrer">ty cagle</a>
+                <span> / </span>
+                <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">SpaceFollowKit</a>
+              </div>
+              <nav class="links" aria-label="Footer links">
+                <a href="https://github.com/tjcages/space-follow-kit">home</a>
+                <a href="https://github.com/tjcages/space-follow-kit#readme">docs</a>
+                <a href="https://github.com/tjcages/space-follow-kit/issues">issues</a>
+              </nav>
+            </footer>
           </div>
-          <nav class="links" aria-label="Footer links">
-            <a href="https://github.com/tjcages/space-follow-kit">home</a>
-            <a href="https://github.com/tjcages/space-follow-kit#readme">docs</a>
-            <a href="https://github.com/tjcages/space-follow-kit/issues">issues</a>
-          </nav>
-        </footer>
+        </article>
       </section>
     </main>
+    <div id="flight-card" class="flight-card is-hidden" aria-hidden="true"></div>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
     <script>
       (() => {
+        const ViewState = {
+          HOME: "home",
+          OPENING: "opening",
+          DETAIL: "detail",
+          CLOSING: "closing",
+        };
+
         const homeScreen = document.getElementById("home-screen");
         const detailScreen = document.getElementById("detail-screen");
+        const detailShell = document.getElementById("detail-shell");
+        const flightCard = document.getElementById("flight-card");
         const homeCards = Array.from(document.querySelectorAll(".home-card"));
         const backButton = document.getElementById("back-button");
         const detailPackage = document.getElementById("detail-package");
 
         const tabs = Array.from(document.querySelectorAll(".package-tab"));
         const focus = document.getElementById("package-focus");
+        let state = ViewState.HOME;
+        let selectedIndex = 0;
         const hasFlip =
           typeof window.gsap !== "undefined" &&
           typeof window.Flip !== "undefined";
@@ -181,6 +197,49 @@ Window("Quick Capture", id: "quick-capture") {
           },
         };
 
+        function setState(nextState) {
+          state = nextState;
+          detailScreen?.setAttribute("data-state", nextState);
+        }
+
+        function setHomeInteraction(enabled) {
+          homeCards.forEach((card) => {
+            card.disabled = !enabled;
+          });
+        }
+
+        function resetHomeCards() {
+          homeCards.forEach((card) => {
+            card.classList.remove("is-origin");
+            window.gsap.set(card, { opacity: 1, scale: 1 });
+          });
+          if (homeScreen) {
+            window.gsap.set(homeScreen, { opacity: 1 });
+          }
+        }
+
+        function syncFlightCard(fromCard, rect) {
+          if (!flightCard || !fromCard) return;
+          flightCard.innerHTML = fromCard.innerHTML;
+          flightCard.classList.remove("is-hidden");
+          window.gsap.set(flightCard, {
+            position: "fixed",
+            top: rect.top,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height,
+            margin: 0,
+            borderRadius: 16,
+            zIndex: 9999,
+          });
+        }
+
+        function hideFlightCard() {
+          if (!flightCard) return;
+          flightCard.classList.add("is-hidden");
+          flightCard.innerHTML = "";
+        }
+
         function render(index) {
           tabs.forEach((tab, i) => {
             const active = i === index;
@@ -195,41 +254,101 @@ Window("Quick Capture", id: "quick-capture") {
           focus.querySelector(".focus-copy").textContent = data.copy;
         }
 
-        function openDetail(index, sourceCard) {
-          if (!homeScreen || !detailScreen) return;
+        function openDetail(index, clickedCard) {
+          if (!homeScreen || !detailScreen || !detailShell) return;
+          if (state !== ViewState.HOME) return;
+
+          setState(ViewState.OPENING);
+          selectedIndex = index;
+          clickedCard?.classList.add("is-origin");
+          setHomeInteraction(false);
+
           if (detailPackage) detailPackage.textContent = `SpaceFollowKit · Package ${index + 1}`;
           render(index);
 
-          detailScreen.classList.remove("is-hidden");
-          detailScreen.classList.remove("is-active");
-          detailScreen.classList.add("is-prep");
-          const target = detailScreen.getBoundingClientRect();
+          detailScreen.classList.add("is-visible");
+          detailScreen.setAttribute("aria-hidden", "false");
+          window.gsap.set(detailShell, { opacity: 0 });
 
-          if (!hasFlip || !sourceCard) {
-            homeScreen.classList.add("is-hidden");
-            detailScreen.classList.remove("is-prep");
-            detailScreen.classList.add("is-active");
-            window.scrollTo({ top: 0, behavior: "instant" });
+          if (!hasFlip || !clickedCard) {
+            detailScreen.classList.add("is-detail");
+            window.gsap.to(detailShell, {
+              opacity: 1,
+              duration: 0.35,
+              ease: "power2.out",
+              onComplete: () => {
+                setState(ViewState.DETAIL);
+              },
+            });
             return;
           }
 
-          const clone = sourceCard.cloneNode(true);
-          clone.classList.add("flip-clone");
-          document.body.appendChild(clone);
+          const source = clickedCard.getBoundingClientRect();
+          const target = detailShell.getBoundingClientRect();
+          syncFlightCard(clickedCard, source);
 
-          const source = sourceCard.getBoundingClientRect();
-          window.gsap.set(clone, {
-            position: "fixed",
-            top: source.top,
-            left: source.left,
-            width: source.width,
-            height: source.height,
-            margin: 0,
-            zIndex: 9999,
+          const flipState = window.Flip.getState(flightCard);
+          window.gsap.set(flightCard, {
+            top: target.top,
+            left: target.left,
+            width: target.width,
+            height: target.height,
+            borderRadius: 20,
           });
 
-          const state = window.Flip.getState(clone);
-          window.gsap.set(clone, {
+          const mutedCards = homeCards.filter((card, i) => i !== index);
+          const timeline = window.gsap.timeline({
+            onComplete: () => {
+              hideFlightCard();
+              detailScreen.classList.add("is-detail");
+              window.gsap.set(detailShell, { opacity: 1 });
+              setState(ViewState.DETAIL);
+            },
+          });
+
+          timeline.add(
+            window.Flip.from(flipState, {
+              duration: 0.72,
+              ease: "power3.inOut",
+              absolute: true,
+            }),
+            0
+          );
+          timeline.to(
+            mutedCards,
+            { opacity: 0.16, scale: 0.95, duration: 0.45, ease: "power2.out" },
+            0
+          );
+          timeline.to(homeScreen, { opacity: 0.52, duration: 0.45, ease: "power2.out" }, 0);
+          timeline.to(detailShell, { opacity: 1, duration: 0.34, ease: "power2.out" }, 0.38);
+        }
+
+        function closeDetail() {
+          if (!homeScreen || !detailScreen || !detailShell) return;
+          if (state !== ViewState.DETAIL) return;
+
+          setState(ViewState.CLOSING);
+          setHomeInteraction(false);
+
+          const targetCard = homeCards[selectedIndex];
+          detailScreen.classList.remove("is-detail");
+
+          if (!hasFlip || !targetCard) {
+            detailScreen.classList.remove("is-visible");
+            detailScreen.setAttribute("aria-hidden", "true");
+            resetHomeCards();
+            setHomeInteraction(true);
+            setState(ViewState.HOME);
+            return;
+          }
+
+          const source = detailShell.getBoundingClientRect();
+          const target = targetCard.getBoundingClientRect();
+          syncFlightCard(targetCard, source);
+          window.gsap.set(detailShell, { opacity: 0 });
+
+          const flipState = window.Flip.getState(flightCard);
+          window.gsap.set(flightCard, {
             top: target.top,
             left: target.left,
             width: target.width,
@@ -237,31 +356,33 @@ Window("Quick Capture", id: "quick-capture") {
             borderRadius: 16,
           });
 
-          window.Flip.from(state, {
-            duration: 0.62,
-            ease: "power3.inOut",
-            absolute: true,
+          const mutedCards = homeCards.filter((_, i) => i !== selectedIndex);
+          const timeline = window.gsap.timeline({
             onComplete: () => {
-              clone.remove();
-              homeScreen.classList.add("is-hidden");
-              detailScreen.classList.remove("is-prep");
-              detailScreen.classList.add("is-active");
-              window.scrollTo({ top: 0, behavior: "instant" });
-              window.gsap.fromTo(
-                detailScreen,
-                { opacity: 0.85, y: 8 },
-                { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }
-              );
+              hideFlightCard();
+              detailScreen.classList.remove("is-visible");
+              detailScreen.setAttribute("aria-hidden", "true");
+              resetHomeCards();
+              setHomeInteraction(true);
+              setState(ViewState.HOME);
             },
           });
-        }
 
-        function closeDetail() {
-          if (!homeScreen || !detailScreen) return;
-          detailScreen.classList.remove("is-active");
-          detailScreen.classList.add("is-hidden");
-          detailScreen.classList.remove("is-prep");
-          homeScreen.classList.remove("is-hidden");
+          timeline.add(
+            window.Flip.from(flipState, {
+              duration: 0.64,
+              ease: "power3.inOut",
+              absolute: true,
+            }),
+            0
+          );
+          timeline.to(homeScreen, { opacity: 1, duration: 0.44, ease: "power2.out" }, 0.1);
+          timeline.to(
+            mutedCards,
+            { opacity: 1, scale: 1, duration: 0.44, ease: "power2.out" },
+            0.12
+          );
+          timeline.to(detailShell, { opacity: 0, duration: 0.25, ease: "power1.out" }, 0);
         }
 
         tabs.forEach((tab) => {
