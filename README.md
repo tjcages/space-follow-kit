@@ -87,3 +87,28 @@ struct GroupWindowView: View {
     }
 }
 ```
+
+## Demo Website (Cloudflare Worker)
+
+This repo also includes a static demo site in `site/`, served by a Worker via Cloudflare static assets.
+
+### Local preview
+
+```bash
+npm install
+npm run preview
+```
+
+Then open the local URL Wrangler prints (usually `http://localhost:8787`).
+
+> “Local preview script” just means a one-command shortcut (`npm run preview`) so you do not have to remember the full `wrangler dev` command.
+
+### Deploy
+
+```bash
+npm run deploy
+```
+
+### Demo health endpoint
+
+The Worker includes `GET /api/health` to verify Worker routing is active.

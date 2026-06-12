@@ -2,3 +2,6 @@
 .swiftpm/
 Package.resolved
 DerivedData/
+node_modules/
+.wrangler/
+.DS_Store

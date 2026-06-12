@@ -1,0 +1,13 @@
+{
+  "name": "space-follow-kit-site",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "preview": "wrangler dev -c wrangler.jsonc",
+    "check": "wrangler check -c wrangler.jsonc",
+    "deploy": "wrangler deploy -c wrangler.jsonc"
+  },
+  "devDependencies": {
+    "wrangler": "latest"
+  }
+}
