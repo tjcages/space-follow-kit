@@ -92,7 +92,7 @@ body {
    either (radius/shadow tweens are the classic repaint jank source) */
 .home-card {
   width: 280px;
-  aspect-ratio: 1 / 1.3;
+  aspect-ratio: 280 / 352; /* former 1:1.3 (364px tall) minus 12px */
   border-radius: 18px;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), 0 24px 60px rgba(15, 23, 42, 0.14);
   /* box-shadow only: opacity/transform are GSAP-driven during transitions,
@@ -182,31 +182,16 @@ body {
   flex: none;
 }
 
+/* Fills the remaining card height, cover-cropped like a Mail preview */
 .card-preview {
-  flex: none;
+  flex: 1 1 auto;
+  min-height: 0;
   display: block;
   margin-top: 12px;
   width: 100%;
-  aspect-ratio: 16 / 10;
   object-fit: cover;
   border-radius: 10px;
   background: var(--gray-2);
-}
-
-.mini-actions {
-  margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid var(--gray-3);
-  display: flex;
-  gap: 7px;
-}
-
-.mini-pill {
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1;
-  padding: 7px 12px;
-  color: var(--gray-11);
 }
 
 /* Detail layer — fixed, layered above the page so opening never reflows it */
