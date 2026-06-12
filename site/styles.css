@@ -121,9 +121,10 @@ body {
   border-bottom: 1px solid var(--gray-3);
 }
 
+/* Matches the "· Swift Package" text color beside it */
 .mini-glyph {
   flex: none;
-  color: var(--gray-12);
+  color: var(--gray-9);
 }
 
 .mini-bar-title {
