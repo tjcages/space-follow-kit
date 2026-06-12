@@ -8,6 +8,31 @@
 - `SubwindowSpaceHandoffCoordinator` for deterministic close/reopen handoff on Space change.
 - Configurable AppStorage key and handoff timing.
 
+## Integration Modes
+
+### 1) Simple mode (most apps)
+
+Use only the SwiftUI modifier when you just need Space-follow behavior on a window:
+
+```swift
+import SpaceFollowKit
+
+Window("Quick Capture", id: "quick-capture") {
+    QuickCaptureView()
+        .subwindowSpacesBehavior(storageKey: "subwindowsOnAllSpaces")
+}
+```
+
+### 2) Advanced mode (keyed windows)
+
+Use `SubwindowSpaceHandoffCoordinator` when your app uses keyed/reopenable windows
+(for example `WindowGroup(for:)`) and you need deterministic close/reopen on Space change.
+
+This mode requires app-specific glue:
+- a way to access the host `NSWindow` (for example, your own `WindowAccessor`)
+- your own frame persistence function
+- your own reopen route (`openWindow(value:)`, etc.)
+
 ## Requirements
 
 - macOS 14+
@@ -27,16 +52,7 @@ Then add the product:
 .product(name: "SpaceFollowKit", package: "space-follow-kit")
 ```
 
-## Basic Usage
-
-```swift
-import SpaceFollowKit
-
-Window("Quick Capture", id: "quick-capture") {
-    QuickCaptureView()
-        .subwindowSpacesBehavior(storageKey: "subwindowsOnAllSpaces")
-}
-```
+## Advanced Example
 
 ```swift
 import SwiftUI
