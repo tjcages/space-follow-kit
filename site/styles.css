@@ -59,21 +59,11 @@ body {
   overflow: clip;
 }
 
-.is-hidden {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-
 /* Home screen */
 .home-screen {
-  position: absolute;
-  inset: 0;
   min-height: calc(100vh - 56px);
   display: grid;
   place-items: center;
-  transition: opacity 220ms ease-out;
-  will-change: opacity;
 }
 
 .home-cards {
@@ -98,7 +88,9 @@ body {
   align-items: flex-start;
   text-align: left;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
-  transition: transform 160ms ease-out, opacity 180ms ease-out, border-color 180ms ease-out;
+  /* border-color only: opacity/transform are GSAP-driven during transitions,
+     and a CSS transition on them would fight the tween */
+  transition: border-color 180ms ease-out;
   cursor: pointer;
   will-change: transform, opacity;
 }
@@ -109,10 +101,6 @@ body {
 
 .home-card:active {
   transform: scale(0.98);
-}
-
-.home-card.is-origin {
-  opacity: 1 !important;
 }
 
 .home-card-app {
@@ -140,37 +128,41 @@ body {
   color: var(--gray-9);
 }
 
-/* Detail screen */
-.detail-screen {
-  position: absolute;
+/* Detail layer — fixed, layered above the page so opening never reflows it */
+.detail-layer {
+  position: fixed;
   inset: 0;
-  min-height: calc(100vh - 56px);
+  z-index: 100;
+  padding: 28px 20px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 220ms ease-out, visibility 220ms ease-out;
-  will-change: opacity;
 }
 
-.detail-screen.is-visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.detail-screen.is-detail {
-  pointer-events: auto;
-}
-
-.detail-shell {
+.detail-frame {
+  position: relative;
   width: min(100%, 940px);
   height: 100%;
   margin: 0 auto;
+  display: grid;
+}
+
+/* Invisible twin of the shell's resting rect: the Flip.fit destination */
+.detail-anchor {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.detail-shell {
+  grid-area: 1 / 1;
+  position: relative;
   background: #ffffff;
   border: 1px solid var(--gray-3);
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  opacity: 0;
-  will-change: transform, opacity;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.14);
+  overflow: hidden;
+  pointer-events: auto;
+  will-change: transform;
 }
 
 .detail-scroll {
@@ -182,20 +174,21 @@ body {
   padding: 18px 18px 10px;
 }
 
-.flight-card {
-  pointer-events: none;
+/* Card replica that cross-dissolves while the shell morphs */
+.card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
   background: var(--gray-2);
-  border: 1px solid var(--gray-3);
-  border-radius: 16px;
+  border-radius: inherit;
   padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: flex-start;
   text-align: left;
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14);
-  overflow: hidden;
-  will-change: transform, width, height, top, left;
+  pointer-events: none;
 }
 
 .detail-nav {
@@ -488,6 +481,10 @@ body {
 
   .home-screen {
     min-height: calc(100vh - 36px);
+  }
+
+  .detail-layer {
+    padding: 18px 12px;
   }
 
   .home-cards {

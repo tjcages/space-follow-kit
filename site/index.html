@@ -41,10 +41,18 @@
           </button>
         </div>
       </section>
+    </main>
 
-      <section id="detail-screen" class="detail-screen" aria-label="Package detail" aria-hidden="true">
-        <article class="detail-shell" id="detail-shell">
-          <div class="detail-scroll">
+    <!--
+      Detail lives in its own fixed layer so opening it never reflows the page.
+      .detail-anchor is an invisible sibling occupying the shell's resting rect;
+      the shell Flip-fits between the clicked card and this anchor.
+    -->
+    <div id="detail-layer" class="detail-layer" data-state="home" aria-hidden="true">
+      <div class="detail-frame">
+        <div id="detail-anchor" class="detail-anchor" aria-hidden="true"></div>
+        <article id="detail-shell" class="detail-shell" aria-label="Package detail">
+          <div id="detail-scroll" class="detail-scroll">
             <div class="detail-nav">
               <button type="button" class="back-button" id="back-button">← Back</button>
               <span class="detail-package" id="detail-package">SpaceFollowKit · Package 1</span>
@@ -136,12 +144,16 @@ Window("Quick Capture", id: "quick-capture") {
               </nav>
             </footer>
           </div>
+
+          <!-- Replica of the clicked card, used for the cross-dissolve while the shell morphs -->
+          <div id="card-face" class="card-face" aria-hidden="true"></div>
         </article>
-      </section>
-    </main>
-    <div id="flight-card" class="flight-card is-hidden" aria-hidden="true"></div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js"></script>
     <script>
       (() => {
         const ViewState = {
@@ -151,25 +163,33 @@ Window("Quick Capture", id: "quick-capture") {
           CLOSING: "closing",
         };
 
-        const homeScreen = document.getElementById("home-screen");
-        const detailScreen = document.getElementById("detail-screen");
-        const detailShell = document.getElementById("detail-shell");
-        const flightCard = document.getElementById("flight-card");
-        const homeCards = Array.from(document.querySelectorAll(".home-card"));
+        const layer = document.getElementById("detail-layer");
+        const anchor = document.getElementById("detail-anchor");
+        const shell = document.getElementById("detail-shell");
+        const scroll = document.getElementById("detail-scroll");
+        const face = document.getElementById("card-face");
         const backButton = document.getElementById("back-button");
         const detailPackage = document.getElementById("detail-package");
-
+        const homeCards = Array.from(document.querySelectorAll(".home-card"));
         const tabs = Array.from(document.querySelectorAll(".package-tab"));
         const focus = document.getElementById("package-focus");
+
+        gsap.registerPlugin(Flip, CustomEase);
+
+        // iOS drill-in curve — the App Store card expansion feel.
+        const cardEase = CustomEase.create("cardEase", "0.32, 0.72, 0, 1");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const OPEN_DURATION = reduceMotion ? 0 : 0.62;
+        const CLOSE_DURATION = reduceMotion ? 0 : 0.5;
+
+        const CARD_RADIUS = 16;
+        const SHELL_RADIUS = 20;
+        const CARD_SHADOW = "0 1px 2px rgba(15, 23, 42, 0.06)";
+        const SHELL_SHADOW = "0 18px 50px rgba(15, 23, 42, 0.14)";
+
         let state = ViewState.HOME;
         let selectedIndex = 0;
-        const hasFlip =
-          typeof window.gsap !== "undefined" &&
-          typeof window.Flip !== "undefined";
 
-        if (hasFlip) {
-          window.gsap.registerPlugin(window.Flip);
-        }
         const payload = {
           0: {
             source: "space-follow-kit",
@@ -197,9 +217,9 @@ Window("Quick Capture", id: "quick-capture") {
           },
         };
 
-        function setState(nextState) {
-          state = nextState;
-          detailScreen?.setAttribute("data-state", nextState);
+        function setState(next) {
+          state = next;
+          layer.dataset.state = next;
         }
 
         function setHomeInteraction(enabled) {
@@ -208,45 +228,12 @@ Window("Quick Capture", id: "quick-capture") {
           });
         }
 
-        function resetHomeCards() {
-          homeCards.forEach((card) => {
-            card.classList.remove("is-origin");
-            window.gsap.set(card, { opacity: 1, scale: 1 });
-          });
-          if (homeScreen) {
-            window.gsap.set(homeScreen, { opacity: 1 });
-          }
-        }
-
-        function syncFlightCard(fromCard, rect) {
-          if (!flightCard || !fromCard) return;
-          flightCard.innerHTML = fromCard.innerHTML;
-          flightCard.classList.remove("is-hidden");
-          window.gsap.set(flightCard, {
-            position: "fixed",
-            top: rect.top,
-            left: rect.left,
-            width: rect.width,
-            height: rect.height,
-            margin: 0,
-            borderRadius: 16,
-            zIndex: 9999,
-          });
-        }
-
-        function hideFlightCard() {
-          if (!flightCard) return;
-          flightCard.classList.add("is-hidden");
-          flightCard.innerHTML = "";
-        }
-
         function render(index) {
           tabs.forEach((tab, i) => {
             const active = i === index;
             tab.classList.toggle("is-selected", active);
             tab.setAttribute("aria-pressed", active ? "true" : "false");
           });
-          if (!focus) return;
           const data = payload[index];
           focus.querySelector(".focus-source").textContent = data.source;
           focus.querySelector(".focus-version").textContent = data.version;
@@ -254,152 +241,107 @@ Window("Quick Capture", id: "quick-capture") {
           focus.querySelector(".focus-copy").textContent = data.copy;
         }
 
-        function openDetail(index, clickedCard) {
-          if (!homeScreen || !detailScreen || !detailShell) return;
-          if (state !== ViewState.HOME) return;
+        // Snapshot the clicked card into the face, frozen at the card's size so
+        // it doesn't reflow while the shell morphs around it.
+        function prepareFace(card) {
+          const rect = card.getBoundingClientRect();
+          face.innerHTML = card.innerHTML;
+          gsap.set(face, { width: rect.width, height: rect.height });
+        }
 
+        function openDetail(index, card) {
+          if (state !== ViewState.HOME) return;
           setState(ViewState.OPENING);
           selectedIndex = index;
-          clickedCard?.classList.add("is-origin");
           setHomeInteraction(false);
 
-          if (detailPackage) detailPackage.textContent = `SpaceFollowKit · Package ${index + 1}`;
+          detailPackage.textContent = `SpaceFollowKit · Package ${index + 1}`;
           render(index);
 
-          detailScreen.classList.add("is-visible");
-          detailScreen.setAttribute("aria-hidden", "false");
-          window.gsap.set(detailShell, { opacity: 0 });
+          const anchorWidth = anchor.getBoundingClientRect().width;
+          prepareFace(card);
+          scroll.scrollTop = 0;
 
-          if (!hasFlip || !clickedCard) {
-            detailScreen.classList.add("is-detail");
-            window.gsap.to(detailShell, {
-              opacity: 1,
-              duration: 0.35,
-              ease: "power2.out",
-              onComplete: () => {
-                setState(ViewState.DETAIL);
-              },
-            });
-            return;
-          }
+          // Pre-lay the detail content out at its final width: the expanding
+          // shell *reveals* it (clip) rather than reflowing it every frame.
+          gsap.set(scroll, { width: anchorWidth, opacity: 0, y: 16, overflow: "hidden" });
+          gsap.set(face, { opacity: 1, visibility: "visible" });
+          gsap.set(shell, { borderRadius: CARD_RADIUS, boxShadow: CARD_SHADOW });
 
-          const source = clickedCard.getBoundingClientRect();
-          const target = detailShell.getBoundingClientRect();
-          syncFlightCard(clickedCard, source);
+          // Place the shell pixel-for-pixel over the clicked card, then swap
+          // visibility within the same frame — no flicker, no visible cut.
+          Flip.fit(shell, card, { absolute: true });
+          gsap.set(layer, { autoAlpha: 1 });
+          gsap.set(card, { autoAlpha: 0 });
+          layer.setAttribute("aria-hidden", "false");
 
-          const flipState = window.Flip.getState(flightCard);
-          window.gsap.set(flightCard, {
-            top: target.top,
-            left: target.left,
-            width: target.width,
-            height: target.height,
-            borderRadius: 20,
-          });
-
-          const mutedCards = homeCards.filter((card, i) => i !== index);
-          const timeline = window.gsap.timeline({
+          const others = homeCards.filter((_, i) => i !== index);
+          const tl = gsap.timeline({
             onComplete: () => {
-              hideFlightCard();
-              detailScreen.classList.add("is-detail");
-              window.gsap.set(detailShell, { opacity: 1 });
+              // Hand the shell back to CSS layout so window resizes keep working.
+              gsap.set(shell, { clearProps: "all" });
+              gsap.set(scroll, { clearProps: "width,transform,opacity,overflow" });
+              gsap.set(face, { visibility: "hidden" });
               setState(ViewState.DETAIL);
             },
           });
 
-          timeline.add(
-            window.Flip.from(flipState, {
-              duration: 0.72,
-              ease: "power3.inOut",
-              absolute: true,
-            }),
-            0
-          );
-          timeline.to(
-            mutedCards,
-            { opacity: 0.16, scale: 0.95, duration: 0.45, ease: "power2.out" },
-            0
-          );
-          timeline.to(homeScreen, { opacity: 0.52, duration: 0.45, ease: "power2.out" }, 0);
-          timeline.to(detailShell, { opacity: 1, duration: 0.34, ease: "power2.out" }, 0.38);
+          tl.add(Flip.fit(shell, anchor, { duration: OPEN_DURATION, ease: cardEase, absolute: true }), 0);
+          tl.to(shell, { borderRadius: SHELL_RADIUS, boxShadow: SHELL_SHADOW, duration: OPEN_DURATION, ease: cardEase }, 0);
+          tl.to(face, { opacity: 0, duration: OPEN_DURATION * 0.45, ease: "power1.out" }, OPEN_DURATION * 0.08);
+          tl.to(scroll, { opacity: 1, y: 0, duration: OPEN_DURATION * 0.6, ease: "power2.out" }, OPEN_DURATION * 0.3);
+          tl.to(others, { opacity: 0.2, scale: 0.96, duration: OPEN_DURATION * 0.6, ease: "power2.out" }, 0);
         }
 
         function closeDetail() {
-          if (!homeScreen || !detailScreen || !detailShell) return;
           if (state !== ViewState.DETAIL) return;
-
           setState(ViewState.CLOSING);
-          setHomeInteraction(false);
 
-          const targetCard = homeCards[selectedIndex];
-          detailScreen.classList.remove("is-detail");
+          const card = homeCards[selectedIndex];
+          const anchorWidth = anchor.getBoundingClientRect().width;
+          prepareFace(card);
+          gsap.set(face, { opacity: 0, visibility: "visible" });
+          gsap.set(scroll, { width: anchorWidth, overflow: "hidden" });
 
-          if (!hasFlip || !targetCard) {
-            detailScreen.classList.remove("is-visible");
-            detailScreen.setAttribute("aria-hidden", "true");
-            resetHomeCards();
-            setHomeInteraction(true);
-            setState(ViewState.HOME);
-            return;
-          }
-
-          const source = detailShell.getBoundingClientRect();
-          const target = targetCard.getBoundingClientRect();
-          syncFlightCard(targetCard, source);
-          window.gsap.set(detailShell, { opacity: 0 });
-
-          const flipState = window.Flip.getState(flightCard);
-          window.gsap.set(flightCard, {
-            top: target.top,
-            left: target.left,
-            width: target.width,
-            height: target.height,
-            borderRadius: 16,
-          });
-
-          const mutedCards = homeCards.filter((_, i) => i !== selectedIndex);
-          const timeline = window.gsap.timeline({
+          const others = homeCards.filter((_, i) => i !== selectedIndex);
+          const tl = gsap.timeline({
             onComplete: () => {
-              hideFlightCard();
-              detailScreen.classList.remove("is-visible");
-              detailScreen.setAttribute("aria-hidden", "true");
-              resetHomeCards();
+              // The shell ends exactly over the card; reveal the card and hide
+              // the layer in the same frame so the swap is invisible.
+              gsap.set(homeCards, { clearProps: "opacity,visibility,transform" });
+              gsap.set(layer, { autoAlpha: 0 });
+              layer.setAttribute("aria-hidden", "true");
+              gsap.set(shell, { clearProps: "all" });
+              gsap.set(scroll, { clearProps: "width,transform,opacity,overflow" });
+              gsap.set(face, { visibility: "hidden" });
               setHomeInteraction(true);
               setState(ViewState.HOME);
             },
           });
 
-          timeline.add(
-            window.Flip.from(flipState, {
-              duration: 0.64,
-              ease: "power3.inOut",
-              absolute: true,
-            }),
-            0
-          );
-          timeline.to(homeScreen, { opacity: 1, duration: 0.44, ease: "power2.out" }, 0.1);
-          timeline.to(
-            mutedCards,
-            { opacity: 1, scale: 1, duration: 0.44, ease: "power2.out" },
-            0.12
-          );
-          timeline.to(detailShell, { opacity: 0, duration: 0.25, ease: "power1.out" }, 0);
+          tl.add(Flip.fit(shell, card, { duration: CLOSE_DURATION, ease: cardEase, absolute: true }), 0);
+          tl.to(shell, { borderRadius: CARD_RADIUS, boxShadow: CARD_SHADOW, duration: CLOSE_DURATION, ease: cardEase }, 0);
+          tl.to(scroll, { opacity: 0, duration: CLOSE_DURATION * 0.4, ease: "power1.out" }, 0);
+          tl.to(face, { opacity: 1, duration: CLOSE_DURATION * 0.5, ease: "power1.out" }, CLOSE_DURATION * 0.35);
+          tl.to(others, { opacity: 1, scale: 1, duration: CLOSE_DURATION * 0.7, ease: "power2.out" }, CLOSE_DURATION * 0.15);
         }
 
         tabs.forEach((tab) => {
           tab.addEventListener("click", () => {
-            const index = Number(tab.dataset.index || 0);
-            render(index);
+            render(Number(tab.dataset.index || 0));
           });
         });
 
         homeCards.forEach((card) => {
           card.addEventListener("click", () => {
-            const index = Number(card.dataset.index || 0);
-            openDetail(index, card);
+            openDetail(Number(card.dataset.index || 0), card);
           });
         });
 
-        backButton?.addEventListener("click", closeDetail);
+        backButton.addEventListener("click", closeDetail);
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeDetail();
+        });
       })();
     </script>
   </body>
