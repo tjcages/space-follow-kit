@@ -425,7 +425,7 @@ body {
 }
 
 .code-wrap pre {
-  padding: 12px 16px;
+  padding: 12px 44px 12px 16px; /* right inset clears the copy button */
   margin: 0;
   overflow-x: auto;
   background: var(--bg);
@@ -444,6 +444,59 @@ body {
 .prompt {
   color: var(--gray-8);
   user-select: none;
+}
+
+.copy-button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  color: var(--gray-11);
+  cursor: pointer;
+}
+
+.copy-button:hover {
+  color: var(--gray-12);
+}
+
+.copy-button:active {
+  transform: scale(0.96);
+}
+
+/* Extend the hit area to 42px without growing the visible control */
+.copy-button::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+}
+
+/* Both icons stay mounted and cross-fade: opacity + scale + blur */
+.copy-button svg {
+  grid-area: 1 / 1;
+  transition-property: opacity, scale, filter;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+.icon-check {
+  opacity: 0;
+  scale: 0.25;
+  filter: blur(4px);
+}
+
+.copy-button.copied .icon-check {
+  opacity: 1;
+  scale: 1;
+  filter: blur(0px);
+}
+
+.copy-button.copied .icon-copy {
+  opacity: 0;
+  scale: 0.25;
+  filter: blur(4px);
 }
 
 /* Mail-style actions row */
