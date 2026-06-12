@@ -96,11 +96,11 @@
         <article id="detail-shell" class="detail-shell" aria-label="Package detail">
           <div id="detail-content" class="detail-content">
           <header id="detail-topbar" class="detail-topbar">
-            <button type="button" class="back-button glass" id="back-button" aria-label="Back to packages">←</button>
-            <div class="topbar-title">
-              <strong>SpaceFollowKit</strong><span id="detail-package"> · Package 1</span>
-            </div>
-            <a class="topbar-action" href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <button type="button" class="close-button glass" id="back-button">Close</button>
+            <span class="topbar-package">
+              <svg class="mini-glyph" width="12" height="12" aria-hidden="true"><use href="#swift-glyph" /></svg>
+              Swift Package
+            </span>
           </header>
           <div id="detail-scroll" class="detail-scroll">
             <div class="mail-head">
@@ -198,7 +198,6 @@ Window("Quick Capture", id: "quick-capture") {
         const hero = document.querySelector(".mail-hero");
         const backButton = document.getElementById("back-button");
         const escHint = document.getElementById("esc-hint");
-        const detailPackage = document.getElementById("detail-package");
         const homeCards = Array.from(document.querySelectorAll(".home-card"));
 
         gsap.registerPlugin(CustomEase);
@@ -276,8 +275,6 @@ Window("Quick Capture", id: "quick-capture") {
           setState(ViewState.OPENING);
           selectedIndex = index;
           setHomeInteraction(false);
-
-          detailPackage.textContent = ` · Package ${index + 1}`;
 
           // Zoom morph: the detail content is pinned at its final geometry but
           // scaled down so it is exactly card-sized at the card's origin, then
