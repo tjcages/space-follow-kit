@@ -17,31 +17,70 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="backdrop"></div>
-    <main class="hero">
-      <section class="hero-card">
-        <p class="eyebrow">macOS Swift Package</p>
-        <h1>SpaceFollowKit</h1>
-        <p class="subtitle">
-          Make subwindows follow Spaces with correct z-order and no swipe-time
-          “always on top” glitch.
-        </p>
-        <div class="actions">
-          <a class="button primary" href="https://github.com/tjcages/space-follow-kit"
-            >View on GitHub</a
-          >
-          <a class="button secondary" href="https://github.com/tjcages/space-follow-kit#readme"
-            >Read docs</a
-          >
+    <main class="page">
+      <header class="heading">
+        <h1 class="title">SpaceFollowKit</h1>
+        <div class="version-links">
+          <a href="https://www.npmjs.com/package/space-follow-kit" target="_blank" rel="noopener noreferrer">v0.1.0</a>
+          <span>/</span>
+          <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
-      </section>
-      <section class="preview-wrap">
+      </header>
+
+      <p class="description">
+        Make macOS subwindows follow Spaces with correct z-order and no swipe-time “always on top” glitch.
+      </p>
+
+      <section class="hero-stage" aria-label="Hero preview">
         <img
-          class="preview"
+          class="hero-media"
           src="./assets/hero.png"
           alt="SpaceFollowKit preview window on macOS"
         />
       </section>
+
+      <section class="feature-grid" aria-label="Key features">
+        <article class="feature-card">
+          <p class="feature-label">Behavior</p>
+          <p class="feature-value">Space-aware</p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-label">Handoff</p>
+          <p class="feature-value">Deterministic</p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-label">Integration</p>
+          <p class="feature-value">SwiftUI-first</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>Installation</h2>
+        <pre><code><span class="prompt">$ </span>swift package add https://github.com/tjcages/space-follow-kit.git</code></pre>
+      </section>
+
+      <section class="section">
+        <h2>Usage</h2>
+        <pre><code>import SpaceFollowKit
+
+Window("Quick Capture", id: "quick-capture") {
+  QuickCaptureView()
+    .subwindowSpacesBehavior(storageKey: "subwindowsOnAllSpaces")
+}</code></pre>
+      </section>
+
+      <footer class="footer">
+        <div>
+          <a href="https://github.com/tjcages" target="_blank" rel="noopener noreferrer">tjcages</a>
+          <span> / </span>
+          <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">SpaceFollowKit</a>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="https://github.com/tjcages/space-follow-kit">home</a>
+          <a href="https://github.com/tjcages/space-follow-kit#readme">docs</a>
+          <a href="https://github.com/tjcages/space-follow-kit/issues">issues</a>
+        </nav>
+      </footer>
     </main>
   </body>
 </html>
