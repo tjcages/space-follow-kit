@@ -24,14 +24,47 @@
 
       <p class="description">Deterministic macOS Space handoff for real floating subwindows.</p>
 
-      <section class="demo" aria-label="Hero preview">
-        <button type="button" class="stage" aria-label="SpaceFollowKit preview">
-          <img
-            class="hero-image"
-            src="./assets/hero.png"
-            alt="SpaceFollowKit preview window on macOS"
-          />
-        </button>
+      <section class="demo" aria-label="Package tabs demo">
+        <div class="stage" role="group" aria-label="Package tabs">
+          <div class="package-row">
+            <button type="button" class="package-tab is-selected" data-index="0">
+              <span class="package-app">Package</span>
+              <strong class="package-name">SpaceFollowKit</strong>
+              <span class="package-meta">Swift · macOS</span>
+            </button>
+            <button type="button" class="package-tab" data-index="1">
+              <span class="package-app">Package</span>
+              <strong class="package-name">SpaceFollowKit</strong>
+              <span class="package-meta">Swift · macOS</span>
+            </button>
+            <button type="button" class="package-tab" data-index="2">
+              <span class="package-app">Package</span>
+              <strong class="package-name">SpaceFollowKit</strong>
+              <span class="package-meta">Swift · macOS</span>
+            </button>
+            <button type="button" class="package-tab" data-index="3">
+              <span class="package-app">Package</span>
+              <strong class="package-name">SpaceFollowKit</strong>
+              <span class="package-meta">Swift · macOS</span>
+            </button>
+          </div>
+
+          <article class="package-focus" id="package-focus" aria-live="polite">
+            <header class="focus-head">
+              <span class="focus-source">space-follow-kit</span>
+              <span class="focus-version">v0.1.0</span>
+            </header>
+            <h3 class="focus-title">SpaceFollowKit</h3>
+            <p class="focus-copy">
+              Deterministic macOS Space handoff for floating subwindows with
+              correct z-order and SwiftUI-friendly integration.
+            </p>
+            <div class="focus-actions">
+              <a href="https://github.com/tjcages/space-follow-kit" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://github.com/tjcages/space-follow-kit#readme" target="_blank" rel="noopener noreferrer">Docs</a>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section class="section">
@@ -66,5 +99,58 @@ Window("Quick Capture", id: "quick-capture") {
         </nav>
       </footer>
     </main>
+    <script>
+      (() => {
+        const tabs = Array.from(document.querySelectorAll(".package-tab"));
+        const focus = document.getElementById("package-focus");
+        const payload = {
+          0: {
+            source: "space-follow-kit",
+            version: "v0.1.0",
+            title: "SpaceFollowKit",
+            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration."
+          },
+          1: {
+            source: "space-follow-kit",
+            version: "v0.1.0",
+            title: "SpaceFollowKit",
+            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration."
+          },
+          2: {
+            source: "space-follow-kit",
+            version: "v0.1.0",
+            title: "SpaceFollowKit",
+            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration."
+          },
+          3: {
+            source: "space-follow-kit",
+            version: "v0.1.0",
+            title: "SpaceFollowKit",
+            copy: "Deterministic macOS Space handoff for floating subwindows with correct z-order and SwiftUI-friendly integration."
+          }
+        };
+
+        function render(index) {
+          tabs.forEach((tab, i) => {
+            const active = i === index;
+            tab.classList.toggle("is-selected", active);
+            tab.setAttribute("aria-pressed", active ? "true" : "false");
+          });
+          if (!focus) return;
+          const data = payload[index];
+          focus.querySelector(".focus-source").textContent = data.source;
+          focus.querySelector(".focus-version").textContent = data.version;
+          focus.querySelector(".focus-title").textContent = data.title;
+          focus.querySelector(".focus-copy").textContent = data.copy;
+        }
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const index = Number(tab.dataset.index || 0);
+            render(index);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

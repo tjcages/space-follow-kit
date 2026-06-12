@@ -115,20 +115,116 @@ body {
 
 .stage {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
-  min-height: 200px;
-  cursor: pointer;
+  min-height: 330px;
   background: none;
   border: none;
   border-radius: 12px;
-  padding: 14px;
+  padding: 16px;
+  gap: 14px;
 }
 
-.stage:focus-visible {
-  outline: none;
-  box-shadow: inset 0 0 0 2px var(--gray-6);
+.package-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.package-tab {
+  min-width: 126px;
+  max-width: 126px;
+  min-height: 88px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out, opacity 150ms ease-out;
+  opacity: 0.78;
+}
+
+.package-tab.is-selected {
+  transform: scale(1.08);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.14);
+  opacity: 1;
+  z-index: 2;
+}
+
+.package-tab:active {
+  transform: scale(1.03);
+}
+
+.package-app {
+  font-size: 10px;
+  color: var(--gray-8);
+}
+
+.package-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-12);
+}
+
+.package-meta {
+  font-size: 11px;
+  color: var(--gray-9);
+}
+
+.package-focus {
+  width: 100%;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 16px;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+  min-height: 162px;
+}
+
+.focus-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--gray-8);
+}
+
+.focus-title {
+  margin-top: 6px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gray-12);
+}
+
+.focus-copy {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--gray-11);
+  max-width: 440px;
+}
+
+.focus-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+.focus-actions a {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray-12);
+  opacity: 0.8;
+}
+
+.focus-actions a:hover {
+  opacity: 1;
 }
 
 .hero-image {
@@ -211,6 +307,17 @@ body {
 
 @media (max-width: 560px) {
   .stage {
-    min-height: 160px;
+    min-height: 300px;
+    padding: 12px;
+  }
+
+  .package-tab {
+    min-width: 112px;
+    max-width: 112px;
+    min-height: 78px;
+  }
+
+  .focus-title {
+    font-size: 18px;
   }
 }
