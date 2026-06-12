@@ -198,6 +198,7 @@ Window("Quick Capture", id: "quick-capture") {
         const hero = document.querySelector(".mail-hero");
         const backButton = document.getElementById("back-button");
         const escHint = document.getElementById("esc-hint");
+        const cardsRow = document.querySelector(".home-cards");
         const homeCards = Array.from(document.querySelectorAll(".home-card"));
 
         gsap.registerPlugin(CustomEase);
@@ -275,6 +276,10 @@ Window("Quick Capture", id: "quick-capture") {
           setState(ViewState.OPENING);
           selectedIndex = index;
           setHomeInteraction(false);
+
+          // A wrap FLIP may be mid-flight; settle cards before measuring.
+          gsap.killTweensOf(homeCards);
+          gsap.set(homeCards, { x: 0, y: 0 });
 
           // Zoom morph: the detail content is pinned at its final geometry but
           // scaled down so it is exactly card-sized at the card's origin, then
@@ -412,6 +417,39 @@ Window("Quick Capture", id: "quick-capture") {
           tl.to(face, { filter: "blur(0px)", duration: CLOSE_DURATION * 0.8, ease: "power1.out" }, CLOSE_DURATION * 0.1);
           tl.to(others, { opacity: 1, scale: 1, duration: CLOSE_DURATION * 0.6, ease: zoomEase }, CLOSE_DURATION * 0.1);
         }
+
+        // Layout: 4-across when it fits, otherwise a 2x2 grid, FLIP-animated on
+        // change. The row gets an explicit width in both modes so flexbox never
+        // wraps on its own mid-resize (a never-painted 3+1 state would corrupt
+        // the FLIP source rects).
+        let wrapped = null;
+
+        function layoutCards(animate) {
+          const cardWidth = homeCards[0].offsetWidth;
+          const gap = parseFloat(getComputedStyle(cardsRow).columnGap) || 0;
+          const rowPadding = 16;
+          const available = cardsRow.parentElement.clientWidth - rowPadding;
+          const next = 4 * cardWidth + 3 * gap > available;
+          const changed = next !== wrapped;
+          const before = changed && animate && !reduceMotion
+            ? homeCards.map((c) => c.getBoundingClientRect())
+            : null;
+          wrapped = next;
+          cardsRow.style.width = next
+            ? `${2 * cardWidth + gap + rowPadding}px`
+            : `${4 * cardWidth + 3 * gap + rowPadding}px`;
+          if (!before) return;
+          homeCards.forEach((card, i) => {
+            const now = card.getBoundingClientRect();
+            const dx = before[i].left - now.left;
+            const dy = before[i].top - now.top;
+            if (!dx && !dy) return;
+            gsap.fromTo(card, { x: dx, y: dy }, { x: 0, y: 0, duration: 0.5, ease: zoomEase, overwrite: "auto" });
+          });
+        }
+
+        window.addEventListener("resize", () => layoutCards(true));
+        layoutCards(false);
 
         homeCards.forEach((card) => {
           card.addEventListener("click", () => {
