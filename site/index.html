@@ -368,7 +368,7 @@ Window("Quick Capture", id: "quick-capture") {
           tl.to(others, { opacity: 0.2, boxShadow: CARD_SHADOW_LOW, duration: OPEN_DURATION * 0.55, ease: zoomEase }, 0);
         }
 
-        function closeDetail() {
+        function closeDetail(duration = CLOSE_DURATION) {
           if (state !== ViewState.DETAIL) return;
           setState(ViewState.CLOSING);
           endPullGesture();
@@ -443,17 +443,17 @@ Window("Quick Capture", id: "quick-capture") {
             },
           });
 
-          tl.to(shell, { ...shellRectProps(cardRect, frameRect), duration: CLOSE_DURATION, ease: zoomEase }, 0);
-          tl.to(content, { scale: ratio, duration: CLOSE_DURATION, ease: zoomEase }, 0);
-          tl.to(face, { scale: 1, duration: CLOSE_DURATION, ease: zoomEase }, 0);
-          tl.to(proxy, { ...proxyRectProps(previewRect, cardRect), borderRadius: 10, duration: CLOSE_DURATION, ease: zoomEase }, 0);
+          tl.to(shell, { ...shellRectProps(cardRect, frameRect), duration, ease: zoomEase }, 0);
+          tl.to(content, { scale: ratio, duration, ease: zoomEase }, 0);
+          tl.to(face, { scale: 1, duration, ease: zoomEase }, 0);
+          tl.to(proxy, { ...proxyRectProps(previewRect, cardRect), borderRadius: 10, duration, ease: zoomEase }, 0);
           // Mirror of the open: maximized content snaps out fast (fade + blur),
           // minimized face resolves in slowly and lands fully crisp.
-          tl.to(content, { opacity: 0, filter: "blur(10px)", duration: CLOSE_DURATION * 0.25, ease: "power1.out" }, 0);
-          tl.to(face, { opacity: 1, duration: CLOSE_DURATION * 0.6, ease: "power1.inOut" }, CLOSE_DURATION * 0.1);
-          tl.to(face, { filter: "blur(0px)", duration: CLOSE_DURATION * 0.8, ease: "power1.out" }, CLOSE_DURATION * 0.1);
-          tl.to(cardsRow, { scale: 1, duration: CLOSE_DURATION, ease: zoomEase }, 0);
-          tl.to(others, { opacity: 1, boxShadow: CARD_SHADOW, duration: CLOSE_DURATION * 0.6, ease: zoomEase }, CLOSE_DURATION * 0.1);
+          tl.to(content, { opacity: 0, filter: "blur(10px)", duration: duration * 0.25, ease: "power1.out" }, 0);
+          tl.to(face, { opacity: 1, duration: duration * 0.6, ease: "power1.inOut" }, duration * 0.1);
+          tl.to(face, { filter: "blur(0px)", duration: duration * 0.8, ease: "power1.out" }, duration * 0.1);
+          tl.to(cardsRow, { scale: 1, duration, ease: zoomEase }, 0);
+          tl.to(others, { opacity: 1, boxShadow: CARD_SHADOW, duration: duration * 0.6, ease: zoomEase }, duration * 0.1);
         }
 
         // Layout: 4-across when it fits, otherwise a 2x2 grid, FLIP-animated on
@@ -516,8 +516,11 @@ Window("Quick Capture", id: "quick-capture") {
         // fingers lift, so the pull carries momentum for free. Crossing the
         // dismiss distance closes IMMEDIATELY mid-gesture (no end-of-gesture
         // wait); otherwise a short idle gap springs the sheet back.
-        const PULL_DISMISS = 130;
+        const PULL_DISMISS = 180;
         const PULL_MAX = 360;
+        // Pull-triggered closes glide a touch longer: the sheet is already
+        // moving with the fingers, so a standard-speed close reads as a snap.
+        const PULL_CLOSE_DURATION = reduceMotion ? 0 : 0.7;
         let pullX = 0;
         let pullY = 0;
         let pulling = false;
@@ -587,7 +590,7 @@ Window("Quick Capture", id: "quick-capture") {
               if (pullEndTimer) clearTimeout(pullEndTimer);
               pullEndTimer = null;
               applyPull();
-              closeDetail();
+              closeDetail(PULL_CLOSE_DURATION);
               return;
             }
             applyPull();
@@ -601,8 +604,8 @@ Window("Quick Capture", id: "quick-capture") {
           { passive: false }
         );
 
-        backButton.addEventListener("click", closeDetail);
-        escHint.addEventListener("click", closeDetail);
+        backButton.addEventListener("click", () => closeDetail());
+        escHint.addEventListener("click", () => closeDetail());
         layer.addEventListener("click", (event) => {
           if (!shell.contains(event.target)) closeDetail();
         });
