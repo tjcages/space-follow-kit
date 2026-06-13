@@ -508,33 +508,42 @@ Window("Quick Capture", id: "quick-capture") {
           });
         });
 
-        // Trackpad swipe-down-to-dismiss (mirrors the socials lightbox): once
-        // the sheet is scrolled to the top, continuing to swipe down pulls
-        // the whole card with the gesture — it follows the fingers with
-        // resistance, shrinks, and the home cards resurface behind it. The
-        // trackpad's own inertia keeps feeding deltas after the fingers lift,
-        // so the pull carries momentum for free; a short idle gap ends the
-        // gesture and either dismisses (past threshold) or springs back.
+        // Trackpad swipe-to-dismiss (mirrors the socials lightbox): swiping
+        // down with the sheet scrolled to the top — or swiping sideways from
+        // anywhere — picks the whole card up. It follows the fingers in both
+        // axes with resistance, shrinks, and the home cards resurface behind
+        // it. The trackpad's own inertia keeps feeding deltas after the
+        // fingers lift, so the pull carries momentum for free. Crossing the
+        // dismiss distance closes IMMEDIATELY mid-gesture (no end-of-gesture
+        // wait); otherwise a short idle gap springs the sheet back.
         const PULL_DISMISS = 130;
         const PULL_MAX = 360;
+        let pullX = 0;
         let pullY = 0;
         let pulling = false;
         let pullEndTimer = null;
         const pullOthers = () => homeCards.filter((_, i) => i !== selectedIndex);
+        const pullDistance = () => Math.hypot(pullX, pullY);
+
+        // Ease-out mapping = built-in resistance: travel saturates ~150px
+        function resist(v) {
+          const p = Math.min(1, Math.abs(v) / PULL_MAX);
+          return Math.sign(v) * 150 * (1 - (1 - p) * (1 - p));
+        }
 
         function applyPull() {
-          const p = Math.min(1, pullY / PULL_MAX);
-          // Ease-out mapping = built-in resistance: travel saturates ~150px
+          const p = Math.min(1, pullDistance() / PULL_MAX);
           const eased = 1 - (1 - p) * (1 - p);
-          gsap.set(shell, { y: 150 * eased, scale: 1 - 0.08 * eased, transformOrigin: "50% 0%" });
+          gsap.set(shell, { x: resist(pullX), y: resist(pullY), scale: 1 - 0.08 * eased, transformOrigin: "50% 0%" });
           gsap.set(cardsRow, { scale: RECEDE_SCALE + (1 - RECEDE_SCALE) * eased });
           gsap.set(pullOthers(), { opacity: 0.2 + 0.8 * eased });
         }
 
         function settlePull() {
           pulling = false;
+          pullX = 0;
           pullY = 0;
-          gsap.to(shell, { y: 0, scale: 1, duration: 0.45, ease: zoomEase, clearProps: "transform,transformOrigin" });
+          gsap.to(shell, { x: 0, y: 0, scale: 1, duration: 0.45, ease: zoomEase, clearProps: "transform,transformOrigin" });
           gsap.to(cardsRow, { scale: RECEDE_SCALE, duration: 0.45, ease: zoomEase });
           gsap.to(pullOthers(), { opacity: 0.2, duration: 0.45, ease: zoomEase });
         }
@@ -545,6 +554,7 @@ Window("Quick Capture", id: "quick-capture") {
             pullEndTimer = null;
           }
           pulling = false;
+          pullX = 0;
           pullY = 0;
         }
 
@@ -553,18 +563,31 @@ Window("Quick Capture", id: "quick-capture") {
           (event) => {
             if (state !== ViewState.DETAIL) return;
             if (!pulling) {
-              // Only capture the gesture when the sheet can't scroll up further
-              if (!(scroll.scrollTop <= 0 && event.deltaY < 0)) return;
+              // Capture downward swipes only once the sheet can't scroll up
+              // further; sideways swipes grab the sheet from anywhere (they
+              // never conflict with the vertical scroll).
+              const downAtTop = scroll.scrollTop <= 0 && event.deltaY < 0;
+              const sideways = Math.abs(event.deltaX) > Math.abs(event.deltaY);
+              if (!downAtTop && !sideways) return;
               pulling = true;
               gsap.killTweensOf([shell, cardsRow, ...homeCards]);
             }
             event.preventDefault();
+            pullX -= event.deltaX;
             pullY = Math.max(0, pullY - event.deltaY);
-            if (pullY === 0 && event.deltaY > 0) {
-              // Pushed back to the top: hand control back to native scroll
+            if (pullY === 0 && Math.abs(pullX) < 2 && event.deltaY > 0) {
+              // Pushed back to the start: hand control back to native scroll
               if (pullEndTimer) clearTimeout(pullEndTimer);
               pullEndTimer = null;
               settlePull();
+              return;
+            }
+            if (pullDistance() >= PULL_DISMISS) {
+              // Threshold crossed: dismiss now, while the gesture is still live
+              if (pullEndTimer) clearTimeout(pullEndTimer);
+              pullEndTimer = null;
+              applyPull();
+              closeDetail();
               return;
             }
             applyPull();
@@ -572,11 +595,7 @@ Window("Quick Capture", id: "quick-capture") {
             pullEndTimer = setTimeout(() => {
               pullEndTimer = null;
               if (!pulling) return;
-              if (pullY >= PULL_DISMISS) {
-                closeDetail();
-              } else {
-                settlePull();
-              }
+              settlePull();
             }, 90);
           },
           { passive: false }
