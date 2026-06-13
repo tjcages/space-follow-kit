@@ -36,6 +36,7 @@
 html {
   background: var(--bg);
   color: var(--gray-12);
+  overscroll-behavior: none;
 }
 
 /* No visible scrollbars anywhere */
@@ -51,6 +52,7 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
+  overscroll-behavior: none;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: var(--bg);
   /* Dim grid with plus marks at intersections: one inline SVG tile */
@@ -278,6 +280,7 @@ body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: none;
   display: flex;
   flex-direction: column;
   gap: 0;
